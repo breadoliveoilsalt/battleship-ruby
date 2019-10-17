@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.com/breadoliveoilsalt/battleship-ruby.svg?branch=master)](https://travis-ci.com/breadoliveoilsalt/battleship-ruby)
 
-
 # Battleship CLI App in Ruby
 
 Welcome!
@@ -11,11 +10,11 @@ To run the app locally:
 
 1. Fork it in GitHub and clone the master branch to your computer.
 
-2. In your terminal, `cd` into the root directory the app with the command `cd battleship-ruby`.  
+2. In your terminal, `cd` into the root directory of the app with the command `cd battleship-ruby`.  
 
-3. In your terminal, run `bundle install` to download dependencies.
+3. Run `bundle install` to download dependencies.
 
-4. In your terminal, from the app's root directory, run `ruby exe/battleship.rb`.  
+4. Run `ruby exe/battleship.rb`.  
 
 ## Running the App's Tests
 
