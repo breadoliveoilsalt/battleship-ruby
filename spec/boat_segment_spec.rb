@@ -31,6 +31,33 @@ describe BoatSegment do
     end
   end
 
+  describe "#board" do
+  
+    it "defaults to nil" do
+      expect(boat_segment.board).to eq(nil)
+    end
+
+  end
+
+  describe "#set_board" do
+
+    it "sets #board to the argument passed in" do
+      board_double = double("Board Object")
+
+      boat_segment.set_board(board_double)
+
+      expect(boat_segment.board).to eq(board_double)
+    end
+
+    it "returns self" do  
+      board_double = double("Board Object")
+
+      result = boat_segment.set_board(board_double)
+
+      expect(result).to eq(boat_segment)
+    end
+  end
+
   describe "#coordinate" do
   
     it "defaults to nil" do

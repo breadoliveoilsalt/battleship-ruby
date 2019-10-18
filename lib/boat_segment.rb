@@ -1,15 +1,21 @@
 class BoatSegment
 
-  attr_reader :boat, :coordinate
+  attr_reader :boat, :board, :coordinate
 
   def initialize
     @boat = nil
+    @board = nil
     @coordinate = nil
     @hit = false
   end
 
   def set_boat(boat)
     @boat = boat
+    self
+  end
+
+  def set_board(board)
+    @board = board
     self
   end
 
