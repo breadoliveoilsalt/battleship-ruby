@@ -86,6 +86,7 @@ describe GuessResponse do
     
     it "sets #boat_type to the argument passed in" do
       boat_type_arg = "Destroyer"  
+
       guess_response.add_boat_type(boat_type_arg)
 
       expect(guess_response.boat_type).to eq(boat_type_arg)
@@ -93,6 +94,7 @@ describe GuessResponse do
 
     it "returns self" do
       boat_type_arg = "Destroyer"  
+
       response = guess_response.add_boat_type(boat_type_arg)
 
       expect(response).to eq(guess_response)
@@ -104,6 +106,7 @@ describe GuessResponse do
     
     it "sets #coordinate to the argument passed in" do
       coordinate_arg = double("Coordinate")  
+
       guess_response.add_coordinate(coordinate_arg)
 
       expect(guess_response.coordinate).to eq(coordinate_arg)
@@ -111,6 +114,7 @@ describe GuessResponse do
 
     it "returns self" do
       coordinate_arg = double("Coordinate")  
+
       response = guess_response.add_coordinate(coordinate_arg)
 
       expect(response).to eq(guess_response)

@@ -16,13 +16,17 @@ describe Coordinate do
     
     it "sets the return value of #row" do
       coordinate.with_row("a")
+
       result = coordinate.row
+
       expect(result).to eq("a")
     end
 
     it "returns self" do
       coordinate.with_row("a")
+      
       result = coordinate
+
       expect(result).to eq(coordinate)
     end
 
@@ -40,13 +44,17 @@ describe Coordinate do
     
     it "sets @column" do
       coordinate.with_column("1")
+
       result = coordinate.column
+
       expect(result).to eq("1")
     end
 
     it "returns self" do
       coordinate.with_column("1")
+
       result = coordinate
+
       expect(result).to eq(coordinate)
     end
 
