@@ -59,18 +59,18 @@ describe Board do
 
   describe "#data" do
 
-    it "defaults to a hash with keys for the letters 'a' through 'j', each with a value of an empty array" do 
+    it "defaults to a hash with keys for the letters 'a' through 'j', each with a value of an array filled with 10 nils" do 
       expected_result = {
-        a: [ ],
-        b: [ ],
-        c: [ ],
-        d: [ ],
-        e: [ ],
-        f: [ ],
-        g: [ ],
-        h: [ ],
-        i: [ ],
-        j: [ ]
+        a: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+        b: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+        c: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+        d: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+        e: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+        f: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+        g: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+        h: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+        i: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+        j: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
       }
       
       expect(board.data).to eq(expected_result)
