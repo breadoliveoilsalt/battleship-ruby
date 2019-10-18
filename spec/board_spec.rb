@@ -56,4 +56,25 @@ describe Board do
     end
 
   end
+
+  describe "#data" do
+
+    it "defaults to a hash with keys for the letters 'a' through 'j', each with a value of an empty array" do 
+      expected_result = {
+        a: [ ],
+        b: [ ],
+        c: [ ],
+        d: [ ],
+        e: [ ],
+        f: [ ],
+        g: [ ],
+        h: [ ],
+        i: [ ],
+        j: [ ]
+      }
+      
+      expect(board.data).to eq(expected_result)
+    end
+
+  end
 end

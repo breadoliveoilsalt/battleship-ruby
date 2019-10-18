@@ -14,4 +14,19 @@ class Board
     boats.all? { | boat | boat.sunk? }
   end
 
+  def data
+    {
+      a: [ ],
+      b: [ ],
+      c: [ ],
+      d: [ ],
+      e: [ ],
+      f: [ ],
+      g: [ ],
+      h: [ ],
+      i: [ ],
+      j: [ ]
+    }
+  end
+
 end
