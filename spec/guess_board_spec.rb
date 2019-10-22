@@ -16,7 +16,7 @@ describe GuessBoard do
     data_representation: data_representation_double
     ) }
 
-  describe "#update_data" do
+  describe "#update_with" do
 
     it "calls #update_data on @data_representation, passing its own arguments, coordinate_guess and response" do
       expected_result = "Expected Result"
@@ -24,7 +24,7 @@ describe GuessBoard do
       response = double("response")
       allow(data_representation_double).to receive(:update_data).with(coordinate_guess, response).and_return(expected_result)
 
-      result = guess_board.update_data(coordinate_guess, response)
+      result = guess_board.update_with(coordinate_guess, response)
 
       expect(result).to eq(expected_result)
     end

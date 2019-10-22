@@ -4,7 +4,7 @@ class GuessBoard
     @data_representation = data_representation
   end
 
-  def update_data(coordinate_guess, response)
+  def update_with(coordinate_guess, response)
     @data_representation.update_data(coordinate_guess, response)
   end
 
