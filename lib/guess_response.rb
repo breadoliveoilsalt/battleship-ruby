@@ -1,11 +1,11 @@
 class GuessResponse
 
-  attr_reader :boat_type, :coordinate
+  attr_reader :ship_type, :coordinate
 
   def initialize(bool = false)
     @hit = bool 
-    @boat_sunk = false
-    @boat_type = nil
+    @ship_sunk = false
+    @ship_type = nil
     @coordinate = nil
   end
 
@@ -17,13 +17,13 @@ class GuessResponse
     GuessResponse.new(true)
   end
 
-  def add_boat_sunk
-    @boat_sunk = true
+  def add_ship_sunk
+    @ship_sunk = true
     self
   end
 
-  def add_boat_type(boat_name)
-    @boat_type = boat_name
+  def add_ship_type(ship_name)
+    @ship_type = ship_name
     self
   end
   
@@ -36,8 +36,8 @@ class GuessResponse
     @hit
   end
 
-  def boat_sunk?
-    @boat_sunk
+  def ship_sunk?
+    @ship_sunk
   end
 
 end

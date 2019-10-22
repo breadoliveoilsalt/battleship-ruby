@@ -1,17 +1,17 @@
 class Board
 
-  attr_reader :boats
+  attr_reader :ships
 
   def initialize
-    @boats = [ ]
+    @ships = [ ]
   end
 
-  def set_boats(boats)
-    @boats = boats
+  def set_ships(ships)
+    @ships = ships
   end
 
-  def all_boats_sunk?
-    boats.all? { | boat | boat.sunk? }
+  def all_ships_sunk?
+    ships.all? { | ship | ship.sunk? }
   end
 
   def data

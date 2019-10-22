@@ -1,56 +1,56 @@
 require_relative '../lib/board.rb'
-require_relative '../lib/boat.rb'
+require_relative '../lib/ship.rb'
 
 describe Board do
 
   let(:board) { Board.new }
 
-  describe "#boats" do
+  describe "#ships" do
 
     it "defaults to an empty array" do
-      expect(board.boats).to eq([ ])
+      expect(board.ships).to eq([ ])
     end
 
   end
 
-  describe "#set_boats" do
+  describe "#set_ships" do
 
-    it "sets the return value of #boats with the argument passed in" do
-      boats = [double("Boat 1"), double("Boat 2")]
+    it "sets the return value of #ships with the argument passed in" do
+      ships = [double("ship 1"), double("ship 2")]
 
-      board.set_boats(boats)
+      board.set_ships(ships)
 
-      expect(board.boats).to eq(boats)
+      expect(board.ships).to eq(ships)
     end
 
     it "returns self" do
-      boats = [double("Boat 1"), double("Boat 2")]
+      ships = [double("ship 1"), double("ship 2")]
 
-      result = board.set_boats(boats)
+      result = board.set_ships(ships)
 
-      expect(result).to eq(boats)
+      expect(result).to eq(ships)
     end
 
   end
 
-  describe "#all_boats_sunk?" do 
+  describe "#all_ships_sunk?" do 
     
-    it "returns true when all boats respond to #sunk? with true" do 
-      boat1 = instance_double("Boat", :sunk? => true)
-      boat2 = instance_double("Boat", :sunk? => true)
-      board.set_boats([boat1, boat2])
+    it "returns true when all ships respond to #sunk? with true" do 
+      ship1 = instance_double("ship", :sunk? => true)
+      ship2 = instance_double("ship", :sunk? => true)
+      board.set_ships([ship1, ship2])
 
-      result = board.all_boats_sunk?
+      result = board.all_ships_sunk?
 
       expect(result).to eq(true)
     end
     
-    it "returns false when one boat respond to #sunk? with false" do 
-      boat1 = instance_double("Boat", :sunk? => true)
-      boat2 = instance_double("Boat", :sunk? => false)
-      board.set_boats([boat1, boat2])
+    it "returns false when one ship respond to #sunk? with false" do 
+      ship1 = instance_double("ship", :sunk? => true)
+      ship2 = instance_double("ship", :sunk? => false)
+      board.set_ships([ship1, ship2])
 
-      result = board.all_boats_sunk?
+      result = board.all_ships_sunk?
 
       expect(result).to eq(false)
     end

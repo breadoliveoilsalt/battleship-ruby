@@ -1,4 +1,4 @@
-class BoatTypes
+class ShipTypes
 
   def self.with_segment_counts
      [["Carrier", 5],

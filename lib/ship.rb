@@ -1,4 +1,4 @@
-class Boat
+class Ship
 
   attr_reader :type, :segments
 
@@ -7,8 +7,8 @@ class Boat
     @segments = [ ]
   end
 
-  def set_type(boat_type)
-    @type = boat_type
+  def set_type(ship_type)
+    @type = ship_type
     self
   end
   
