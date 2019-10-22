@@ -21,14 +21,8 @@ class BoardData
     }
   end
 
-  def update_data(coordinate_guess, response)
-    data_row = coordinate_guess.row.to_sym
-    data_column = coordinate_guess.column.to_i - 1
-    if response.hit?
-      @data[data_row][data_column] = true 
-    elsif !response.hit?
-      @data[data_row][data_column] = false 
-    end
+  def update_date(row, column, hit)
+    @data[row][column - 1] = hit
   end
 
 end

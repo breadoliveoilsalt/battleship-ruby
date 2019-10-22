@@ -5,7 +5,9 @@ class GuessBoard
   end
 
   def update_with(coordinate_guess, response)
-    @data_representation.update_data(coordinate_guess, response)
+    row = coordinate_guess.row.to_sym
+    column = coordinate_guess.column.to_i
+    @data_representation.update_data(row, column, response.hit?)
   end
 
   def data

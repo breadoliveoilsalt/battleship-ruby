@@ -46,9 +46,9 @@ class ConsoleUserInterface
     column.to_i >= 1 && column.to_i <= 10
   end
   
-  def record_result_of_guess(guess_response)
-    row = guess_response.coordinate.row
-    column = guess_response.coordinate.column
+  def record_result_of_guess(coordinate_guess, guess_response)
+    row = coordinate_guess.row
+    column = coordinate_guess.column
     if guess_response.hit?
       @prior_guess_result = "\n#{row}#{column} was a hit!\n"
     else
