@@ -2,8 +2,8 @@ class Ship
 
   attr_reader :type, :segments
 
-  def initialize
-    @type = nil
+  def initialize(type = "Ship")
+    @type = type
     @segments = [ ]
   end
 

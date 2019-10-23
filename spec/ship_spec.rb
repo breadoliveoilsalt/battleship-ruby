@@ -7,8 +7,8 @@ describe Ship do
 
   describe "#type" do
 
-    it "defaults to nil" do
-      expect(ship.type).to be(nil)
+    it "defaults to 'Ship'" do
+      expect(ship.type).to eq("Ship")
     end
 
   end
