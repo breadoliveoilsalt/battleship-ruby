@@ -9,9 +9,7 @@ describe HumanPlayer do
   describe "#new" do
 
     it "requires keyword arguments for user_interface and guess_board" do
-
       expect { HumanPlayer.new }.to raise_error(ArgumentError)
-
     end
 
   end
