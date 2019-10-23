@@ -41,25 +41,17 @@ describe BoardData do
 
   describe "#update_data" do
 
-    it "updates an array element in @data corresponding to a grid coordinate with true when passed a coordinate guess and response where response#hit? returns true" do
-      coordinate_guess = instance_double("Coordinate", :row => "a", :column => "1")
-      response = instance_double("GuessResponse", "hit?" => true)
+    it "updates an array element in @data corresponding to the arguments row and column with the status of the argument hit" do
+      row = :a
+      column = 0
+      hit = true
 
-      board_data.update_data(coordinate_guess, response)
+      board_data.update_data(row, column, hit)
 
       data_grid_coordinate = board_data.data[:a][0]
       expect(data_grid_coordinate).to eq(true)
     end
 
-    it "updates an array element in @data corresponding to a grid coordinate with false when passed a coordinate guess and response where response#hit? returns false" do
-      coordinate_guess = instance_double("Coordinate", :row => "a", :column => "1")
-      response = instance_double("GuessResponse", "hit?" => false)
-
-      board_data.update_data(coordinate_guess, response)
-
-      data_grid_coordinate = board_data.data[:a][0]
-      expect(data_grid_coordinate).to eq(false)
-    end
   end
 
 end
