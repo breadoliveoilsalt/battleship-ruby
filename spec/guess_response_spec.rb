@@ -71,13 +71,25 @@ describe GuessResponse do
   describe "#add_ship_sunk" do
     
     it "sets #ship_sunk? to true" do
-      guess_response.add_ship_sunk
+      ship_type = "Battleship"
+      guess_response.add_ship_sunk(ship_type)
       
       expect(guess_response.ship_sunk?).to be(true)
     end
 
+    it "sets #ship_type to the argument passed in" do
+      ship_type = "Battleship"
+      guess_response.add_ship_sunk(ship_type)
+      
+      expect(guess_response.ship_type).to be(ship_type)
+      
+
+    end
+
     it "returns self" do
-      expect(guess_response.add_ship_sunk).to eq(guess_response)
+      ship_type = "Battleship"
+
+      expect(guess_response.add_ship_sunk(ship_type)).to eq(guess_response)
     end
 
   end

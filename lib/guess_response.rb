@@ -17,13 +17,14 @@ class GuessResponse
     GuessResponse.new(true)
   end
 
-  def add_ship_sunk
+  def add_ship_sunk(ship_type)
     @ship_sunk = true
+    @ship_type = ship_type
     self
   end
 
-  def add_ship_type(ship_name)
-    @ship_type = ship_name
+  def add_ship_type(ship_type)
+    @ship_type = ship_type
     self
   end
   
