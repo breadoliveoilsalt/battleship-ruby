@@ -3,31 +3,26 @@ require_relative './coordinate.rb'
 
 class ComputerPlayer
 
-  attr_reader :ships, :fleet_placement_board, :ai
+  attr_reader :ai, :fleet_placement_board
 
-  def initialize(ships:, fleet_placement_board:, ai:)
-    @ships = ships
+  def initialize(ai:, fleet_placement_board:)
     @fleet_placement_board = fleet_placement_board
     @ai = ai
   end
 
   def place_ships
-    ai.assign_coordinates_to_ship_segments(ships) 
-      # or does CP tell fleet placement to do this and pass ai? Does cp
-      # really need to know about its ships if it's asking FPB to do everything else?
-    fleet_placement_board.update_with_ships(ships)
+      # Note: this hard codes all ships to sunk except spot e2
+    ai.assign_coordinates_to_ships_one_left(fleet_placement_board) 
   end
 
   def respond_to_guess(coordinate_guess)
-    occupying_ship = fleet_placement_board.find_and_update(coordinate_guess)
+    occupying_ship = fleet_placement_board.find_ship(coordinate_guess)
     if !occupying_ship
       GuessResponse.respond_with_miss
-    else 
-      if occupying_ship.sunk?
-        GuessResponse.respond_with_hit.add_ship_sunk(occupying_ship.type)
-      else
-        GuessResponse.respond_with_hit
-      end
+    elsif occupying_ship.sunk?
+      GuessResponse.respond_with_hit.add_ship_sunk(occupying_ship.type)
+    else
+      GuessResponse.respond_with_hit
     end
   end
 

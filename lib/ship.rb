@@ -21,4 +21,8 @@ class Ship
     segments.all? { |segment| segment.hit? }
   end
 
+  def has_coordinate?(coordinate)
+    segments.any? { |segment| segment.coordinate == coordinate }
+  end
+
 end

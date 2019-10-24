@@ -3,7 +3,7 @@ require_relative './ship_segment.rb'
 
 class ShipBuilder
 
-  def self.build_ships_with_segments
+  def build_ships_with_segments
     ships = [ ]
     ships << build_carrier
     ships << build_battleship
@@ -12,7 +12,7 @@ class ShipBuilder
     ships << build_patrol_boat
   end
 
-  def self.build_carrier
+  def build_carrier
     ship = Ship.new("Carrier")
     5.times do
       ship.segments << ShipSegment.new.set_ship(ship)
@@ -20,7 +20,7 @@ class ShipBuilder
     ship
   end
 
-  def self.build_battleship
+  def build_battleship
     ship = Ship.new("Battleship")
     4.times do
       ship.segments << ShipSegment.new.set_ship(ship)
@@ -28,7 +28,7 @@ class ShipBuilder
     ship
   end
 
-  def self.build_destroyer
+  def build_destroyer
     ship = Ship.new("Destroyer")
     3.times do
       ship.segments << ShipSegment.new.set_ship(ship)
@@ -36,7 +36,7 @@ class ShipBuilder
     ship
   end
 
-  def self.build_submarine
+  def build_submarine
     ship = Ship.new("Submarine")
     3.times do
       ship.segments << ShipSegment.new.set_ship(ship)
@@ -44,7 +44,7 @@ class ShipBuilder
     ship
   end
 
-  def self.build_patrol_boat
+  def build_patrol_boat
     ship = Ship.new("Patrol Boat")
     2.times do
       ship.segments << ShipSegment.new.set_ship(ship)

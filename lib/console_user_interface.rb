@@ -85,4 +85,7 @@ class ConsoleUserInterface
     "------------------------------------------------------------------\n"
   end
   
+  def good_bye
+    output_stream.render("\nYou won! Thanks for playing! Good bye!\n")
+  end
 end

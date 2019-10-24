@@ -2,9 +2,9 @@ require_relative '../lib/ship_builder.rb'
 
 describe ShipBuilder do
 
-  describe "ShipBuilder#build_ships_with_segments" do
+  describe "#build_ships_with_segments" do
 
-    let(:ships) { ShipBuilder.build_ships_with_segments }
+    let(:ships) { ShipBuilder.new.build_ships_with_segments }
 
     it "returns an array with five Ship objects" do
       all_are_ships = ships.all? { |ship| ship.is_a?(Ship) }
