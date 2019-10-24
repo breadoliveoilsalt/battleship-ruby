@@ -1,14 +1,14 @@
-require_relative '../lib/board.rb'
+require_relative '../lib/fleet_placement_board.rb'
 require_relative '../lib/ship.rb'
 
-describe Board do
+describe FleetPlacementBoard do
 
-  let(:board) { Board.new }
+  let(:fleet_placement_board) { FleetPlacementBoard.new }
 
   describe "#ships" do
 
     it "defaults to an empty array" do
-      expect(board.ships).to eq([ ])
+      expect(fleet_placement_board.ships).to eq([ ])
     end
 
   end
@@ -18,15 +18,15 @@ describe Board do
     it "sets the return value of #ships with the argument passed in" do
       ships = [double("ship 1"), double("ship 2")]
 
-      board.set_ships(ships)
+      fleet_placement_board.set_ships(ships)
 
-      expect(board.ships).to eq(ships)
+      expect(fleet_placement_board.ships).to eq(ships)
     end
 
     it "returns self" do
       ships = [double("ship 1"), double("ship 2")]
 
-      result = board.set_ships(ships)
+      result = fleet_placement_board.set_ships(ships)
 
       expect(result).to eq(ships)
     end
@@ -38,9 +38,9 @@ describe Board do
     it "returns true when all ships respond to #sunk? with true" do 
       ship1 = instance_double("ship", :sunk? => true)
       ship2 = instance_double("ship", :sunk? => true)
-      board.set_ships([ship1, ship2])
+      fleet_placement_board.set_ships([ship1, ship2])
 
-      result = board.all_ships_sunk?
+      result = fleet_placement_board.all_ships_sunk?
 
       expect(result).to eq(true)
     end
@@ -48,9 +48,9 @@ describe Board do
     it "returns false when one ship respond to #sunk? with false" do 
       ship1 = instance_double("ship", :sunk? => true)
       ship2 = instance_double("ship", :sunk? => false)
-      board.set_ships([ship1, ship2])
+      fleet_placement_board.set_ships([ship1, ship2])
 
-      result = board.all_ships_sunk?
+      result = fleet_placement_board.all_ships_sunk?
 
       expect(result).to eq(false)
     end
@@ -73,7 +73,7 @@ describe Board do
         j: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
       }
       
-      expect(board.data).to eq(expected_result)
+      expect(fleet_placement_board.data).to eq(expected_result)
     end
 
   end

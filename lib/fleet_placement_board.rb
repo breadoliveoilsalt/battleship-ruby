@@ -1,4 +1,4 @@
-class Board
+class FleetPlacementBoard
 
   attr_reader :ships
 
