@@ -123,7 +123,7 @@ describe FleetPlacementBoard do
       fleet_placement_board.update_data_with_ships 
 
       expect(fleet_placement_board.data[:a][0]).to eq(segment1)
-      expect(fleet_placement_board.data[:j][10]).to eq(segment2)
+      expect(fleet_placement_board.data[:j][9]).to eq(segment2)
     end
 
   end

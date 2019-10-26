@@ -1,5 +1,4 @@
 require_relative '../lib/guess_board.rb'
-require_relative '../lib/board_data.rb'
 require_relative '../lib/coordinate.rb'
 require_relative '../lib/guess_response.rb'
 

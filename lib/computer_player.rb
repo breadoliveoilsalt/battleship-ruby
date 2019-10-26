@@ -11,8 +11,7 @@ class ComputerPlayer
   end
 
   def place_ships
-      # Note: this hard codes all ships to sunk except spot e2
-    ai.assign_coordinates_to_ships_one_left(fleet_placement_board) 
+    ai.assign_coordinates_to_ships(fleet_placement_board) 
   end
 
   def respond_to_guess(coordinate_guess)
