@@ -10,9 +10,9 @@ class GameLoop
   
   def loop_through_game
     while !current_player_won_game?
-      guess_coordinate = human_player.make_guess
-      response = computer_player.respond_to_guess(guess_coordinate)
-      human_player.note_response(guess_coordinate, response)
+      guess_coordinate = current_player.make_guess
+      response = other_player.respond_to_guess(guess_coordinate)
+      current_player.note_response(guess_coordinate, response)
     end
    end
 
