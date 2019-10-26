@@ -24,10 +24,10 @@ describe HumanPlayer do
 
   describe "#make_guess" do
 
-    it "calls #show_board, #get_row, and #get_column on @user_interface to show the board and get the user's row and column selection" do
+    it "calls #show_guess_board, #get_row, and #get_column on @user_interface to show the board and get the user's row and column selection" do
       human_player.make_guess
 
-      expect(fake_user_interface.calls).to eq([:show_board, :get_row, :get_column])
+      expect(fake_user_interface.calls).to eq([:show_guess_board, :get_row, :get_column])
     end
 
     it "returns a coordinate object based on calling #get_row and #get_column on @user_interface" do

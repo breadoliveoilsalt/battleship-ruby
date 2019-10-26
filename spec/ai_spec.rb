@@ -5,20 +5,87 @@ describe AI do
 
   let(:ai) { AI.new }
 
-  describe "assign_coordinates_to_ships" do
+  let(:fleet_placement_board) { fpb_with_two_ships }
+  
+  describe "#pick_coordinates_for_ships" do
 
-    it "adds coordinates to the ships of a fleet_placement_board" do
-      ships = ShipBuilder.new.build_ships_with_segments
-      fleet_placement_board = FleetPlacementBoard.new(ships: ships)
-
-      ai.assign_coordinates_to_ships(fleet_placement_board)
-      
+    it "assigns adjacent coordinates to ships either vertically or horizontally" do
+      ai.pick_coordinates_for_ships(fleet_placement_board)
+    
       fleet_placement_board.ships.each do | ship |
-        ship.segments.each do | segment |
-          expect(segment.coordinate).to be_a(Coordinate)
+        coordinate_1, coordinate_2, coordinate_3 = get_coordinates(ship)
+
+        if are_vertical?(coordinate_1, coordinate_2)
+          expect(are_vertical?(coordinate_2, coordinate_3)).to be(true)
+          expect(adjacent_column?(coordinate_1, coordinate_2)).to be(true)
+          expect(adjacent_column?(coordinate_2, coordinate_3)).to be(true)
+        elsif are_horizontal?(coordinate_1, coordinate_2)
+          expect(are_horizontal?(coordinate_2, coordinate_3)).to be(true)
+          expect(adjacent_row?(coordinate_1, coordinate_2)).to be(true)
+          expect(adjacent_row?(coordinate_2, coordinate_3)).to be(true)
+        else
+          raise "Failure"
         end
       end
     end
+  end
+
+  def fpb_with_two_ships
+    ship1 = Ship.new.set_segments([ShipSegment.new, ShipSegment.new, ShipSegment.new])
+    ship2 = Ship.new.set_segments([ShipSegment.new, ShipSegment.new, ShipSegment.new])
+    FleetPlacementBoard.new(ships: [ship1, ship2])
+  end
+
+  def get_coordinates(ship)
+    [
+      ship.segments[0].coordinate,
+      ship.segments[1].coordinate,
+      ship.segments[2].coordinate
+    ]
+  end
+
+  def are_vertical?(coordinate_1, coordinate_2)
+    coordinate_1.row == coordinate_2.row
+  end
+
+  def adjacent_column?(coordinate_1, coordinate_2)
+    coordinate_2.column == next_column[coordinate_1.column.to_sym]
+  end
+
+  def are_horizontal?(coordinate_1, coordinate_2)
+    coordinate_1.column == coordinate_2.column
+  end
+
+  def adjacent_row?(coordinate_1, coordinate_2)
+    coordinate_2.row == next_row[coordinate_1.row.to_sym]
+  end
+
+  def next_row
+    { a: "b",
+      b: "c",
+      c: "d",
+      d: "e",
+      e: "f",
+      f: "g",
+      g: "h",
+      h: "i",
+      i: "j",
+      j: nil
+    }
+  end    
+
+  def next_column
+    { "1": "2",
+      "2": "3",
+      "3": "4",
+      "4": "5",
+      "5": "6",
+      "6": "7",
+      "7": "8",
+      "8": "9",
+      "9": "10",
+      "10": nil
+    }
   end
 
 end

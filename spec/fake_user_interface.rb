@@ -6,8 +6,8 @@ class FakeUserInterface
     @calls = []
   end
 
-  def show_board(board)
-    @calls << :show_board
+  def show_guess_board(board)
+    @calls << :show_guess_board
   end
 
   def get_row

@@ -1,5 +1,6 @@
 require_relative './guess_response.rb'
 require_relative './coordinate.rb'
+require_relative './ai_coordinates.rb'
 
 class ComputerPlayer
 
@@ -11,7 +12,7 @@ class ComputerPlayer
   end
 
   def place_ships
-    ai.assign_coordinates_to_ships(fleet_placement_board) 
+    ai.pick_coordinates_for_ships(fleet_placement_board)
   end
 
   def respond_to_guess(coordinate_guess)

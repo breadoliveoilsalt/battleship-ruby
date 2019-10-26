@@ -1,3 +1,5 @@
+require_relative './ship_segment.rb'
+
 class ConsoleUserInterface
 
   attr_reader :output_stream, :input_stream, :prior_guess_result
@@ -56,7 +58,7 @@ class ConsoleUserInterface
     end
   end
   
-  def show_board(guess_board_data)
+  def show_guess_board(guess_board_data)
     system("cls") || system("clear")
     str =  "     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |\n"
     str += line_break
@@ -74,6 +76,34 @@ class ConsoleUserInterface
   def column_value_to_string(column)
     if column == true
       "  \e[31m#{"X"}\e[0m  |"
+    elsif column == false
+      "  \e[36m#{"-"}\e[0m  |"
+    else
+      "     |"
+    end
+  end
+
+  def show_fleet_board(fleet_placement_board)
+    str =  "\n     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |\n"
+    str += line_break
+    fleet_placement_board.data.each do | row, columns |
+      str += "  #{row}  |"
+      columns.each do | column |
+        str += fleet_column_value_to_string(column)
+      end
+      str += "\n" + line_break
+    end
+    output_stream.render(str)
+  end
+
+  def fleet_column_value_to_string(column)
+    if column.is_a?(ShipSegment)
+      segment_string = "[#{column.ship.type[0]}]"
+      if column.hit?
+        " \e[31m#{segment_string}\e[0m |"
+      else  
+        " #{segment_string} |"
+      end
     elsif column == false
       "  \e[36m#{"-"}\e[0m  |"
     else

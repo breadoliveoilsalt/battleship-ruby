@@ -4,13 +4,15 @@ class HumanPlayer
 
   attr_reader :user_interface, :guess_board
 
+  attr_accessor :cheat_board
+
   def initialize(user_interface:, guess_board:)
     @user_interface = user_interface
     @guess_board = guess_board
   end
 
   def make_guess
-    user_interface.show_board(guess_board)
+    user_interface.show_guess_board(guess_board)
     row = user_interface.get_row
     column = user_interface.get_column
     Coordinate.new(row, column)

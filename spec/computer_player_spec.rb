@@ -22,8 +22,8 @@ describe ComputerPlayer do
 
   describe "#place_ships" do
 
-    it "calls @ai.assign_coordinates_to_ships with @ships as an argument" do
-      expect(ai_double).to receive(:assign_coordinates_to_ships).with(fleet_placement_board_double)
+    it "calls @ai.pick_coordinates_for_ships with @ships as an argument" do
+      expect(ai_double).to receive(:pick_coordinates_for_ships).with(fleet_placement_board_double)
       computer_player.place_ships
     end
 

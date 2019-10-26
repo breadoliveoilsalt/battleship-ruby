@@ -7,11 +7,11 @@ class GameLoop
     @computer_player = computer_player 
     @current_player = human_player 
   end
-  
+
   def loop_through_game
     while !current_player_won_game?
       guess_coordinate = current_player.make_guess
-      response = other_player.respond_to_guess(guess_coordinate)
+      response, cheat_board = other_player.respond_to_guess(guess_coordinate)
       current_player.note_response(guess_coordinate, response)
     end
     current_player

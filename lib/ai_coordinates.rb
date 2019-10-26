@@ -1,27 +1,21 @@
-require 'require_all'
-require_all 'lib'
+require_relative './coordinate.rb'
 
-class AI
-
-  attr_accessor :coordinates_used
-
-  def initialize
-    @coordinates_used = [ ]
-  end
+class AICoordinates
 
   def pick_coordinates_for_ships(fleet_placement_board)
+    coordinates_already_used = []
     fleet_placement_board.ships.each do |ship|
-      place_ship(ship)
+      place_ship(ship, coordinates_already_used)
     end
     fleet_placement_board.update_data_with_ships
   end
 
-  def place_ship(ship)
+  def place_ship(ship, coordinates_already_used)
     orientation = ["vertical", "horizontal"].sample
     random_row = possible_rows(ship, orientation).sample
     random_column = possible_columns(ship, orientation).sample
     starting_coordinate = [random_row, random_column]
-    check_if_valid_placement(starting_coordinate, ship, orientation)
+    check_if_valid_placement(starting_coordinate, ship, orientation, coordinates_already_used)
   end
  
   def possible_rows(ship, orientation)
@@ -40,14 +34,14 @@ class AI
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
 
-  def check_if_valid_placement(starting_coordinate, ship, orientation)
+  def check_if_valid_placement(starting_coordinate, ship, orientation, coordinates_already_used)
     resulting_coordinates = generate_test_coordinates(starting_coordinate, ship, orientation)
     resulting_coordinates.each do | coordinate |
-      if coordinates_used.include?(coordinate)
-        return place_ship(ship)
+      if coordinates_already_used.include?(coordinate)
+        return place_ship(ship, coordinates_already_used)
       end
     end
-    @coordinates_used = coordinates_used.concat(resulting_coordinates)
+    coordinates_already_used = coordinates_already_used.concat(resulting_coordinates)
     assign_resulting_coordinates(ship, resulting_coordinates)
   end
 
