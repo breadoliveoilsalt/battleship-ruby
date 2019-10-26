@@ -1,34 +1,19 @@
-require_relative '../lib/fleet_placement_board.rb'
-require_relative '../lib/ship.rb'
+require 'require_all'
+require_all 'lib'
 
 describe FleetPlacementBoard do
 
-  let(:fleet_placement_board) { FleetPlacementBoard.new }
-
-  describe "#ships" do
-
-    it "defaults to an empty array" do
-      expect(fleet_placement_board.ships).to eq([ ])
-    end
-
-  end
+  let(:ships_double) { [double("ship 1"), double("ship 2")] }
+  let(:fleet_placement_board) { FleetPlacementBoard.new(ships: ships_double) }
 
   describe "#set_ships" do
 
     it "sets the return value of #ships with the argument passed in" do
-      ships = [double("ship 1"), double("ship 2")]
+      ships = [double("ship 3"), double("ship 4")]
 
       fleet_placement_board.set_ships(ships)
 
       expect(fleet_placement_board.ships).to eq(ships)
-    end
-
-    it "returns self" do
-      ships = [double("ship 1"), double("ship 2")]
-
-      result = fleet_placement_board.set_ships(ships)
-
-      expect(result).to eq(ships)
     end
 
   end
@@ -77,4 +62,70 @@ describe FleetPlacementBoard do
     end
 
   end
+
+  describe "#find_ship" do
+
+    it "returns a ship if the fleet_placement_board has a ship with the coordinate passed in" do
+      coordinate = double("Coordinate")
+      ship1 = instance_double("Ship", "has_coordinate?" => true)
+      ship2 = instance_double("Ship", "has_coordinate?" => false)
+      fleet_placement_board = FleetPlacementBoard.new(ships: [ship1, ship2])
+
+      result = fleet_placement_board.find_ship(coordinate)
+      
+      expect(result).to eq(ship1)
+    end
+
+    it "returns nil if the fleet_placement_board does not have a ship with the coordinate passed in" do
+      coordinate = double("Coordinate")
+      ship1 = instance_double("Ship", "has_coordinate?" => false)
+      ship2 = instance_double("Ship", "has_coordinate?" => false)
+      fleet_placement_board = FleetPlacementBoard.new(ships: [ship1, ship2])
+
+      result = fleet_placement_board.find_ship(coordinate)
+      
+      expect(result).to eq(nil)
+    end
+
+  end
+
+  describe "#update_data_with_guess" do 
+
+    it "marks a data coordinate as false if the coordinate_guess passed in is a miss" do
+      coordinate = Coordinate.new("a", "1")
+      
+      fleet_placement_board.update_data_with_guess(coordinate)
+
+      expect(fleet_placement_board.data[:a][0]).to be(false)
+    end
+
+    it "marks a ship_segment as hit if the coordinate_guess passed in is a hit" do
+      segment = instance_double("ShipSegment")
+      fleet_placement_board.instance_variable_get("@data")[:a][0] = segment
+      coordinate = Coordinate.new("a", "1")
+      
+      expect(segment).to receive(:mark_as_hit)
+      fleet_placement_board.update_data_with_guess(coordinate)
+    end
+  end
+
+  describe "update_data_with_ships" do
+
+    it "places ship segments within the data" do
+      segment1 = instance_double("ShipSegment1", :coordinate => Coordinate.new("a", "1"))
+      segment2 = instance_double("ShipSegment2", :coordinate => Coordinate.new("j", "10"))
+
+      ship1 = instance_double("Ship1", :segments => [segment1])
+      ship2 = instance_double("Ship2", :segments => [segment2])
+
+      fleet_placement_board = FleetPlacementBoard.new(ships: [ship1, ship2])
+
+      fleet_placement_board.update_data_with_ships 
+
+      expect(fleet_placement_board.data[:a][0]).to eq(segment1)
+      expect(fleet_placement_board.data[:j][10]).to eq(segment2)
+    end
+
+  end
+
 end

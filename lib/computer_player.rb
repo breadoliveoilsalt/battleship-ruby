@@ -16,6 +16,7 @@ class ComputerPlayer
   end
 
   def respond_to_guess(coordinate_guess)
+    fleet_placement_board.update_data_with_guess(coordinate_guess)
     occupying_ship = fleet_placement_board.find_ship(coordinate_guess)
     if !occupying_ship
       GuessResponse.respond_with_miss

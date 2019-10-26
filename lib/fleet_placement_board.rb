@@ -27,7 +27,6 @@ class FleetPlacementBoard
   end
 
   def find_ship(coordinate_guess)
-    update_data_with_guess(coordinate_guess)
     ships.each do | ship |
       if ship.has_coordinate?(coordinate_guess)
         return ship
