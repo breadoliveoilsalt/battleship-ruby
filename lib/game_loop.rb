@@ -14,6 +14,7 @@ class GameLoop
       response = other_player.respond_to_guess(guess_coordinate)
       current_player.note_response(guess_coordinate, response)
     end
+    current_player
    end
 
   def current_player_won_game?
