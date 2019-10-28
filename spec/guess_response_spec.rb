@@ -82,8 +82,6 @@ describe GuessResponse do
       guess_response.add_ship_sunk(ship_type)
       
       expect(guess_response.ship_type).to be(ship_type)
-      
-
     end
 
     it "returns self" do

@@ -25,4 +25,8 @@ class Ship
     segments.any? { |segment| segment.coordinate == coordinate }
   end
 
+  def length
+    segments.length
+  end
+
 end
