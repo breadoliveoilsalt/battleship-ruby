@@ -1,7 +1,7 @@
 require 'require_all'
 require_all 'lib'
 
-class AI
+class AIForPlacingShips
 
   attr_accessor :coordinates_used
 
@@ -9,11 +9,10 @@ class AI
     @coordinates_used = [ ]
   end
 
-  def pick_coordinates_for_ships(fleet_placement_board)
-    fleet_placement_board.ships.each do |ship|
+  def pick_coordinates_for_ships(fleet_board)
+    fleet_board.ships.each do |ship|
       place_ship(ship)
     end
-    fleet_placement_board.update_data_with_ships
   end
 
   def place_ship(ship)

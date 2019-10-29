@@ -6,9 +6,10 @@ class HumanPlayer
 
   attr_accessor :cheat_board
 
-  def initialize(user_interface:, guess_board:)
+  def initialize(user_interface:, guess_board:, fleet_board:)
     @user_interface = user_interface
     @guess_board = guess_board
+    @fleet_board = fleet_board
   end
 
   def make_guess

@@ -29,7 +29,7 @@ describe GameFactory do
       it "has a fleet placement board" do
         computer_player = game_factory.build_players_with_boards_and_ships[1]
         
-        expect(computer_player.fleet_placement_board).to be_a(FleetPlacementBoard)
+        expect(computer_player.fleet_board).to be_a(FleetPlacementBoard)
       end
 
     end
@@ -39,7 +39,7 @@ describe GameFactory do
       it "has five ships" do
         computer_player = game_factory.build_players_with_boards_and_ships[1]
         
-        expect(computer_player.fleet_placement_board.ships.length).to eq(5)
+        expect(computer_player.fleet_board.ships.length).to eq(5)
       end
 
 
@@ -47,7 +47,7 @@ describe GameFactory do
         computer_player = game_factory.build_players_with_boards_and_ships[1]
         
         segment_count = 0
-        computer_player.fleet_placement_board.data.each do | row, columns |
+        computer_player.fleet_board.data.each do | row, columns |
           columns.each do | column |
             if column.is_a?(ShipSegment)
               segment_count += 1

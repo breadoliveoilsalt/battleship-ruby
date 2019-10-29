@@ -10,6 +10,28 @@ class ConsoleUserInterface
     @prior_guess_result = nil
   end
 
+  def show_potential_fleet_board(fleet_board)
+    system("cls") || system("clear")
+    show_fleet_board(fleet_board)
+  end
+
+  def get_board_ok
+    output_stream.render("\nWould you like your ships placed in this way?\n")
+    decision = input_stream.read_line
+    validate_board_ok_decision(decision)
+  end
+
+  def validate_board_ok_decision(decision)
+    if decision == 'y' 
+      true
+    elsif decision == 'n'
+      false
+    else
+      output_stream.render("\nSorry, invalid selection.\n")
+      get_board_ok
+    end
+  end
+
   def get_row
     output_stream.render("\nPlease select a row from 'a' to 'j'\n")
     row = input_stream.read_line
@@ -83,10 +105,10 @@ class ConsoleUserInterface
     end
   end
 
-  def show_fleet_board(fleet_placement_board)
+  def show_fleet_board(fleet_board)
     str =  "\n     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |\n"
     str += line_break
-    fleet_placement_board.data.each do | row, columns |
+    fleet_board.data.each do | row, columns |
       str += "  #{row}  |"
       columns.each do | column |
         str += fleet_column_value_to_string(column)
@@ -126,10 +148,10 @@ class ConsoleUserInterface
   def get_play_again
     output_stream.render("\nWould you like to play again? (Enter 'y' or 'n')\n")
     decision = input_stream.read_line
-    validate_decision(decision)
+    validate_play_again_decision(decision)
   end
   
-  def validate_decision(decision)
+  def validate_play_again_decision(decision)
     if decision == 'y' 
       true
     elsif decision == 'n'

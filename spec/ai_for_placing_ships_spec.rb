@@ -1,18 +1,18 @@
 require 'require_all'
 require_all 'lib'
 
-describe AI do
+describe AIForPlacingShips do
 
-  let(:ai) { AI.new }
+  let(:ai) { AIForPlacingShips.new }
 
-  let(:fleet_placement_board) { fpb_with_two_ships }
+  let(:fleet_board) { fpb_with_two_ships }
   
   describe "#pick_coordinates_for_ships" do
 
     it "assigns adjacent coordinates to ships either vertically or horizontally" do
-      ai.pick_coordinates_for_ships(fleet_placement_board)
+      ai.pick_coordinates_for_ships(fleet_board)
     
-      fleet_placement_board.ships.each do | ship |
+      fleet_board.ships.each do | ship |
         coordinate_1, coordinate_2, coordinate_3 = get_coordinates(ship)
 
         if are_vertical?(coordinate_1, coordinate_2)
@@ -29,11 +29,6 @@ describe AI do
       end
     end
 
-    it "calls #update_data_with_ships on the fleet placement board" do 
-      fleet_placement_board_double = instance_double("FleetPlacementBoard", :ships => [ ])
-      expect(fleet_placement_board_double).to receive(:update_data_with_ships)
-      ai.pick_coordinates_for_ships(fleet_placement_board_double)
-    end
   end
 
   def fpb_with_two_ships
