@@ -28,6 +28,12 @@ describe AI do
         end
       end
     end
+
+    it "calls #update_data_with_ships on the fleet placement board" do 
+      fleet_placement_board_double = instance_double("FleetPlacementBoard", :ships => [ ])
+      expect(fleet_placement_board_double).to receive(:update_data_with_ships)
+      ai.pick_coordinates_for_ships(fleet_placement_board_double)
+    end
   end
 
   def fpb_with_two_ships
