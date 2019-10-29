@@ -85,7 +85,32 @@ class ConsoleUserInterface
     "------------------------------------------------------------------\n"
   end
   
+  def announce_winner(winner)
+    if winner.is_a?(HumanPlayer)
+      output_stream.render("\nCongratulations! You won!\n")
+    else
+      output_stream.render("\nSorry, the other player sunk all your ships.\n")
+    end
+  end
+
+  def get_play_again
+    output_stream.render("\nWould you like to play again? (Enter 'y' or 'n')\n")
+    decision = input_stream.read_line
+    validate_decision(decision)
+  end
+  
+  def validate_decision(decision)
+    if decision == 'y' 
+      true
+    elsif decision == 'n'
+      false
+    else
+      output_stream.render("\nSorry, invalid selection.\n")
+      get_play_again
+    end
+  end
+
   def good_bye
-    output_stream.render("\nYou won! Thanks for playing! Good bye!\n")
+    output_stream.render("\nThanks for playing! Good bye!\n")
   end
 end

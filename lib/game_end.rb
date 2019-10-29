@@ -4,16 +4,15 @@ require_relative '../lib/console_output_stream.rb'
 
 class GameEnd
 
-  def handle_game_over(winner)
-    user_interface.good_bye
-  end 
+  attr_reader :user_interface
 
-    # To clean up
-  def user_interface
-    ConsoleUserInterface.new(
-      output_stream: ConsoleOutputStream.new,
-      input_stream: ConsoleInputStream.new
-    ) 
+  def initialize(user_interface:)
+    @user_interface = user_interface
+  end
+
+  def handle_game_over(winner)
+    user_interface.announce_winner(winner)
+    user_interface.get_play_again
   end 
 
 end
