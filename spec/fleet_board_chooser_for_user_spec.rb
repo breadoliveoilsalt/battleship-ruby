@@ -1,7 +1,7 @@
 require 'require_all'
 require_all 'lib'
 
-describe FleetBoardBuilderForUser do
+describe FleetBoardChooserForUser do
 
   let(:user_interface) { instance_double("UserInterface") }
   let(:board_builder) { class_double("FleetBoardBuilderWithRandomPlacement") }
@@ -9,21 +9,21 @@ describe FleetBoardBuilderForUser do
   describe "#cycle_through_boards" do
     
     it "returns a fleet board built with 'board_builder' passed in at instantiation" do
-      fleet_board_builder_for_user = FleetBoardBuilderForUser.new(
+      fleet_board_chooser_for_user = FleetBoardChooserForUser.new(
         user_interface: user_interface,
         board_builder: FleetBoardBuilderWithRandomPlacement
       )
       allow(user_interface).to receive(:show_potential_fleet_board)
       allow(user_interface).to receive(:get_board_ok).and_return(true)
 
-      result = fleet_board_builder_for_user.cycle_through_boards
+      result = fleet_board_chooser_for_user.cycle_through_boards
       
       expect(result).to be_a(FleetBoard)
     end
 
   describe "the method's cycle" do
 
-    let(:fleet_board_builder_for_user) { FleetBoardBuilderForUser.new(
+    let(:fleet_board_chooser_for_user) { FleetBoardChooserForUser.new(
       user_interface: user_interface,
       board_builder: board_builder 
     ) }
@@ -44,7 +44,7 @@ describe FleetBoardBuilderForUser do
       expect(user_interface).to receive(:show_potential_fleet_board).with(board_2).once
       expect(user_interface).to receive(:show_potential_fleet_board).with(board_3).once
 
-      fleet_board_builder_for_user.cycle_through_boards
+      fleet_board_chooser_for_user.cycle_through_boards
     end
 
     it "returns the fleet board chosen by the user" do
@@ -52,7 +52,7 @@ describe FleetBoardBuilderForUser do
       allow(user_interface).to receive(:show_potential_fleet_board)
       allow(user_interface).to receive(:get_board_ok).and_return(false, false, true)
       
-      result = fleet_board_builder_for_user.cycle_through_boards
+      result = fleet_board_chooser_for_user.cycle_through_boards
       expect(result).to eq(board_3)
     end
     end

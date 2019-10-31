@@ -1,4 +1,4 @@
-class FleetBoardBuilderForUser
+class FleetBoardChooserForUser
 
   attr_reader :user_interface, :board_builder
 
