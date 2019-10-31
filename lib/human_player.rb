@@ -2,7 +2,7 @@ require_relative '../lib/coordinate.rb'
 
 class HumanPlayer
 
-  attr_reader :user_interface, :guess_board
+  attr_reader :user_interface, :guess_board, :fleet_board
 
   attr_accessor :cheat_board
 
@@ -13,6 +13,8 @@ class HumanPlayer
   end
 
   def make_guess
+    user_interface.clear_view
+    user_interface.show_fleet_board(fleet_board)
     user_interface.show_guess_board(guess_board)
     row = user_interface.get_row
     column = user_interface.get_column

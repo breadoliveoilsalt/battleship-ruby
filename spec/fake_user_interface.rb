@@ -6,6 +6,14 @@ class FakeUserInterface
     @calls = []
   end
 
+  def clear_view
+    @calls << :clear_view
+  end
+
+  def show_fleet_board(board)
+    @calls << :show_fleet_board
+  end
+
   def show_guess_board(board)
     @calls << :show_guess_board
   end

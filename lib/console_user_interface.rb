@@ -80,9 +80,14 @@ class ConsoleUserInterface
     end
   end
   
-  def show_guess_board(guess_board_data)
+  def clear_view
     system("cls") || system("clear")
-    str =  "     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |\n"
+  end
+
+  def show_guess_board(guess_board_data)
+    str =   "                             GUESS BOARD                          \n"
+    str += line_break
+    str +=  "     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |\n"
     str += line_break
     guess_board_data.data.each do | row, columns |
       str += "  #{row}  |"
@@ -106,7 +111,9 @@ class ConsoleUserInterface
   end
 
   def show_fleet_board(fleet_board)
-    str =  "\n     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |\n"
+    str =   "                              FLEET BOARD                          \n"
+    str += line_break
+    str +=  "\n     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |\n"
     str += line_break
     fleet_board.data.each do | row, columns |
       str += "  #{row}  |"
