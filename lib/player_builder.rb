@@ -1,7 +1,7 @@
 require 'require_all'
 require_all 'lib'
 
-class GameFactory
+class PlayerBuilder
 
   attr_reader :user_interface
   
