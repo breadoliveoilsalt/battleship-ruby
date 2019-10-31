@@ -16,7 +16,7 @@ class ConsoleUserInterface
   end
 
   def get_board_ok
-    output_stream.render("\nWould you like your ships placed in this way?\n")
+    output_stream.render("\nWould you like your ships placed in this way? (Enter 'y' or 'n')\n")
     decision = input_stream.read_line
     validate_board_ok_decision(decision)
   end

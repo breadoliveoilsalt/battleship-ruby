@@ -4,7 +4,7 @@ require_relative '../lib/console_user_interface.rb'
 describe GameEnd do
 
   let(:user_interface_double) { instance_double("ConsoleUserInterface") }
-  let(:game_end) { GameEnd.new(user_interface: user_interface_double) }
+  let(:game_end) { GameEnd.new(user_interface_double) }
   let(:winner_double) { double("winner") }
 
   describe "#handle_game_over" do

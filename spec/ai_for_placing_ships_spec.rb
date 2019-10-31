@@ -34,7 +34,7 @@ describe AIForPlacingShips do
   def fpb_with_two_ships
     ship1 = Ship.new.set_segments([ShipSegment.new, ShipSegment.new, ShipSegment.new])
     ship2 = Ship.new.set_segments([ShipSegment.new, ShipSegment.new, ShipSegment.new])
-    FleetPlacementBoard.new(ships: [ship1, ship2])
+    FleetBoard.new(ships: [ship1, ship2])
   end
 
   def get_coordinates(ship)

@@ -4,11 +4,9 @@ require_all 'lib'
 describe ComputerPlayer do
 
   let(:fleet_board_double) { instance_double("FleetPlacementBoard") } 
-  let(:ai_double) { instance_double("AI") }
   
   let(:computer_player) { ComputerPlayer.new(
-      fleet_board: fleet_board_double,
-      ai: ai_double
+      fleet_board: fleet_board_double
       )
   }
 
@@ -16,15 +14,6 @@ describe ComputerPlayer do
 
     it "requires keyword arguments" do
       expect{ ComputerPlayer.new }.to raise_error(ArgumentError)
-    end
-
-  end
-
-  describe "#place_ships" do
-
-    it "calls @ai.pick_coordinates_for_ships with @ships as an argument" do
-      expect(ai_double).to receive(:pick_coordinates_for_ships).with(fleet_board_double)
-      computer_player.place_ships
     end
 
   end

@@ -16,10 +16,12 @@ describe HumanPlayer do
 
   let(:guess_board_double) { instance_double("GuessBoard") }
   let (:fake_user_interface) { FakeUserInterface.new }
+  let(:fleet_board_double) { instance_double("FleetBoard") }
 
   let(:human_player) { HumanPlayer.new(
     user_interface: fake_user_interface,
-    guess_board: guess_board_double
+    guess_board: guess_board_double,
+    fleet_board: fleet_board_double
   )}
 
   describe "#make_guess" do
