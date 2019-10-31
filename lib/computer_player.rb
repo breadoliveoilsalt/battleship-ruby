@@ -3,15 +3,10 @@ require_relative './coordinate.rb'
 
 class ComputerPlayer
 
-  attr_reader :ai, :fleet_board
+  attr_reader :fleet_board
 
-  def initialize(ai:, fleet_board:)
+  def initialize(fleet_board:)
     @fleet_board = fleet_board
-    @ai = ai
-  end
-
-  def place_ships
-    ai.pick_coordinates_for_ships(fleet_board)
   end
 
   def respond_to_guess(coordinate_guess)
