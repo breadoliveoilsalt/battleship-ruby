@@ -13,9 +13,7 @@ class HumanPlayer
   end
 
   def make_guess
-    user_interface.clear_view
-    user_interface.show_fleet_board(fleet_board)
-    user_interface.show_guess_board(guess_board)
+    user_interface.show_boards(guess_board, fleet_board)
     row = user_interface.get_row
     column = user_interface.get_column
     Coordinate.new(row, column)

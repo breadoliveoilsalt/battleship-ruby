@@ -26,10 +26,10 @@ describe HumanPlayer do
 
   describe "#make_guess" do
 
-    it "refeshes the screen, shows the boards and asks the user for a row and column guess" do
+    it "shows the boards and asks the user for a row and column guess" do
       human_player.make_guess
 
-      expect(fake_user_interface.calls).to eq([:clear_view, :show_fleet_board, :show_guess_board, :get_row, :get_column])
+      expect(fake_user_interface.calls).to eq([:show_boards, :get_row, :get_column])
     end
 
     it "returns a coordinate object based on calling #get_row and #get_column on @user_interface" do

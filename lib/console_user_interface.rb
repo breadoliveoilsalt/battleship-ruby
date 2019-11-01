@@ -10,9 +10,91 @@ class ConsoleUserInterface
     @prior_guess_result = nil
   end
 
-  def show_potential_fleet_board(fleet_board)
+  def rows
+    ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
+  end
+  
+  def clear_view
     system("cls") || system("clear")
-    show_fleet_board(fleet_board)
+  end
+
+  def show_potential_fleet_board(fleet_board)
+    clear_view
+    str = line
+    str += "|                          FLEET BOARD                            |\n" 
+    str += line
+    str += "|     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |\n"
+    str += line
+    rows.each do | row |
+      str += stringify_fleet_board_row(row, fleet_board) + "\n" + line
+    end
+    output_stream.render(str)
+  end
+
+  def show_boards(guess_board, fleet_board)
+    clear_view
+    str = double_line
+    str += "|                          GUESS BOARD                            | * |                          FLEET BOARD                            |\n" 
+    str += double_line
+    str += "|     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  | * |     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |\n"
+    str += double_line
+    rows.each do | row |
+      str += stringify_guess_board_row(row, guess_board)
+      str += " * "
+      str += stringify_fleet_board_row(row, fleet_board)
+      str += "\n"
+      str += double_line
+    end
+    output_stream.render(str)
+  end
+  
+  def stringify_guess_board_row(row, guess_board)
+    str = "|  #{row}  |"
+    guess_board.data[row.to_sym].each do | column |
+      str += guess_board_column_value_to_string(column) 
+    end
+    str
+  end
+
+  def guess_board_column_value_to_string(column)
+    if column == true
+      "  \e[31m#{"X"}\e[0m  |"
+    elsif column == false
+      "  \e[36m#{"-"}\e[0m  |"
+    else
+      "     |"
+    end
+  end
+
+  def stringify_fleet_board_row(row, fleet_board)
+    str = "|  #{row}  |"
+    fleet_board.data[row.to_sym].each do | column |
+      str += fleet_board_column_value_to_string(column)
+    end
+    str
+  end
+  
+  def fleet_board_column_value_to_string(column)
+    if column.is_a?(ShipSegment)
+      segment_string = "[#{column.ship.type[0]}]"
+      if column.hit?
+        " \e[31m#{segment_string}\e[0m |"
+      else  
+        " #{segment_string} |"
+      end
+    elsif column == false
+      "  \e[36m#{"-"}\e[0m  |"
+    else
+      "     |"
+    end
+  end
+  
+  def line
+    "|-----------------------------------------------------------------|\n"
+  end
+
+  def double_line
+    "|-----------------------------------------------------------------| * |-----------------------------------------------------------------|\n"
   end
 
   def get_board_ok
@@ -80,70 +162,6 @@ class ConsoleUserInterface
     end
   end
   
-  def clear_view
-    system("cls") || system("clear")
-  end
-
-  def show_guess_board(guess_board_data)
-    str =   "                             GUESS BOARD                          \n"
-    str += line_break
-    str +=  "     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |\n"
-    str += line_break
-    guess_board_data.data.each do | row, columns |
-      str += "  #{row}  |"
-      columns.each do | column |
-        str += column_value_to_string(column)
-      end
-      str += "\n" + line_break
-    end
-    output_stream.render(str)
-    output_stream.render(@prior_guess_result)
-  end
-
-  def column_value_to_string(column)
-    if column == true
-      "  \e[31m#{"X"}\e[0m  |"
-    elsif column == false
-      "  \e[36m#{"-"}\e[0m  |"
-    else
-      "     |"
-    end
-  end
-
-  def show_fleet_board(fleet_board)
-    str =   "                              FLEET BOARD                          \n"
-    str += line_break
-    str +=  "\n     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |\n"
-    str += line_break
-    fleet_board.data.each do | row, columns |
-      str += "  #{row}  |"
-      columns.each do | column |
-        str += fleet_column_value_to_string(column)
-      end
-      str += "\n" + line_break
-    end
-    output_stream.render(str)
-  end
-
-  def fleet_column_value_to_string(column)
-    if column.is_a?(ShipSegment)
-      segment_string = "[#{column.ship.type[0]}]"
-      if column.hit?
-        " \e[31m#{segment_string}\e[0m |"
-      else  
-        " #{segment_string} |"
-      end
-    elsif column == false
-      "  \e[36m#{"-"}\e[0m  |"
-    else
-      "     |"
-    end
-  end
-
-  def line_break
-    "------------------------------------------------------------------\n"
-  end
-  
   def announce_winner(winner)
     if winner.is_a?(HumanPlayer)
       output_stream.render("\nCongratulations! You won!\n")
@@ -172,4 +190,5 @@ class ConsoleUserInterface
   def good_bye
     output_stream.render("\nThanks for playing! Good bye!\n")
   end
+
 end
