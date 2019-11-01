@@ -32,8 +32,8 @@ class FakeUserInterface
     "1"
   end
 
-  def record_result_of_guess(coordinate_guess, guess_response)
-    @calls << :record_result_of_guess
+  def show_result_of_guess(coordinate_guess, guess_response)
+    @calls << :show_result_of_guess
   end
 
 end

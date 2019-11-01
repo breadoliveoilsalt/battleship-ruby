@@ -57,12 +57,12 @@ describe HumanPlayer do
       human_player.note_response(coordinate_guess, guess_response)
     end
 
-    it "calls #record_result_of_guess on @user_interface and passes its own arguments for coordinate_guess and guess_response" do
+    it "calls #show_result_of_guess on @user_interface and passes its own arguments for coordinate_guess and guess_response" do
       coordinate_guess = double("coordinate guess")
       guess_response = double("guess response")
 
       human_player.note_response(coordinate_guess, guess_response)
-      expect(fake_user_interface.calls).to eq([:record_result_of_guess])
+      expect(fake_user_interface.calls).to eq([:show_result_of_guess])
     end
 
   end

@@ -21,7 +21,7 @@ class HumanPlayer
   
   def note_response(coordinate_guess, guess_response)
     guess_board.update_with(coordinate_guess, guess_response)
-    user_interface.record_result_of_guess(coordinate_guess, guess_response)
+    user_interface.show_result_of_guess(coordinate_guess, guess_response)
   end
   
 end

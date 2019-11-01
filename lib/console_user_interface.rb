@@ -7,7 +7,7 @@ class ConsoleUserInterface
   def initialize(output_stream:, input_stream:)
     @output_stream = output_stream
     @input_stream = input_stream
-    @prior_guess_result = nil
+    @status = ""
   end
 
   def rows
@@ -48,7 +48,9 @@ class ConsoleUserInterface
     str += "              Unsunk Ships                  Sunk Ships                              Unsunk Ships                  Sunk Ships \n"
     str += "              ------------                  ----------                              ------------                  ---------- \n"
     str += stringify_ships_list(guess_board, fleet_board)
-
+    str += double_line
+    str += "Status: \n"
+    str += @status
     output_stream.render(str)
   end
   
@@ -184,13 +186,17 @@ class ConsoleUserInterface
     column.to_i >= 1 && column.to_i <= 10
   end
   
-  def record_result_of_guess(coordinate_guess, guess_response)
+  def show_result_of_guess(coordinate_guess, guess_response)
     row = coordinate_guess.row
     column = coordinate_guess.column
     if guess_response.hit?
-      @prior_guess_result = "\n#{row}#{column} was a hit!\n"
+      @status = "\n#{row}#{column} was a hit!\n"
     else
-      @prior_guess_result = "\n#{row}#{column} was a miss!\n"
+      @status = "\n#{row}#{column} was a miss!\n"
+    end
+
+    if guess_response.ship_sunk?
+       @status += "\n** You sunk the computer's #{guess_response.ship_type}! **\n"
     end
   end
   
