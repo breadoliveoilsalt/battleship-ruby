@@ -45,6 +45,10 @@ class ConsoleUserInterface
       str += "\n"
       str += double_line
     end
+    str += "              Unsunk Ships                  Sunk Ships                              Unsunk Ships                  Sunk Ships \n"
+    str += "              ------------                  ----------                              ------------                  ---------- \n"
+    str += stringify_ships_list(guess_board, fleet_board)
+
     output_stream.render(str)
   end
   
@@ -95,6 +99,34 @@ class ConsoleUserInterface
 
   def double_line
     "|-----------------------------------------------------------------| * |-----------------------------------------------------------------|\n"
+  end
+
+  def stringify_ships_list(guess_board, fleet_board)
+    str = ""
+    (0..4).each do | index |
+      unsunk_guess_board_ship = stringify_unsunk_ship(guess_board.unsunk_ships[index])
+      sunk_guess_board_ship = stringify_sunk_ship(guess_board.sunk_ships[index])
+      str += "              " + unsunk_guess_board_ship + sunk_guess_board_ship + "\n"
+    end
+    str 
+  end
+
+  def stringify_unsunk_ship(unsunk_ship_string)
+    if unsunk_ship_string
+      padding = 30 - unsunk_ship_string.length
+      padding.times { unsunk_ship_string += " " }
+      unsunk_ship_string
+    else
+      "                              "
+    end
+  end
+
+  def stringify_sunk_ship(sunk_ship_string)
+    if sunk_ship_string
+      sunk_ship_string
+    else
+      "                               "
+    end
   end
 
   def get_board_ok
