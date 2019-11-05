@@ -116,5 +116,18 @@ describe HumanPlayer do
     end
 
   end
+
+  describe "#lost_game?" do
+
+    it "returns the response from asking the fleet board if all ships are sunk" do 
+      
+      allow(fleet_board).to receive("all_ships_sunk?").and_return(true)
+
+      result = human_player.lost_game?
+
+      expect(result).to eq(true)
+    end
+    
+  end
 end
 

@@ -37,4 +37,8 @@ class HumanPlayer
     user_interface.show_result_of_guess(coordinate_guess, guess_response)
   end
   
+  def lost_game?
+    fleet_board.all_ships_sunk?
+  end
+
 end
