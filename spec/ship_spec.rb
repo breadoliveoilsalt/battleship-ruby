@@ -114,14 +114,14 @@ describe Ship do
 
   describe "#length" do
 
-    it "returns the number of segments a ship has" do
+    it "returns the number of segments a ship has" do 
       segment1 = instance_double("shipSegment")
       segment2 = instance_double("shipSegment")
       ship.set_segments([segment1, segment2])
 
       result = ship.length
 
-      expect(result).to eq(2)
+      expect(result).to eq(2) 
     end
   end
 

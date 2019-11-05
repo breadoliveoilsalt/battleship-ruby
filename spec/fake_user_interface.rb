@@ -6,8 +6,20 @@ class FakeUserInterface
     @calls = []
   end
 
-  def show_board(board)
-    @calls << :show_board
+  def clear_view
+    @calls << :clear_view
+  end
+
+  def show_boards(guess_board, fleet_board)
+    @calls << :show_boards
+  end
+
+  def show_fleet_board(board)
+    @calls << :show_fleet_board
+  end
+
+  def show_guess_board(board)
+    @calls << :show_guess_board
   end
 
   def get_row
@@ -20,8 +32,8 @@ class FakeUserInterface
     "1"
   end
 
-  def record_result_of_guess(coordinate_guess, guess_response)
-    @calls << :record_result_of_guess
+  def show_result_of_guess(coordinate_guess, guess_response)
+    @calls << :show_result_of_guess
   end
 
 end
