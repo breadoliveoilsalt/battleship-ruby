@@ -1,6 +1,6 @@
 class GuessBoard
 
-  attr_reader :data
+  attr_reader :data, :unsunk_ships, :sunk_ships
   
   def initialize
     @data = 
@@ -16,12 +16,18 @@ class GuessBoard
         i: Array.new(10, nil),
         j: Array.new(10, nil)
       }
+    @unsunk_ships = ["Carrier", "Battleship", "Destroyer", "Submarine", "Patrol Boat"]
+    @sunk_ships = [ ]
   end
 
   def update_with(coordinate_guess, response)
     row = coordinate_guess.row.to_sym
     column = coordinate_guess.column.to_i - 1
     @data[row][column] = response.hit?
+    if response.ship_sunk?
+      sunk_ships.push(response.ship_type)
+      unsunk_ships.delete(response.ship_type)
+    end
   end
 
 end

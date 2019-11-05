@@ -6,7 +6,7 @@ class GameEnd
 
   attr_reader :user_interface
 
-  def initialize(user_interface:)
+  def initialize(user_interface)
     @user_interface = user_interface
   end
 

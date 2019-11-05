@@ -97,7 +97,7 @@ describe ConsoleUserInterface do
     it "passes a congratulations message to the output stream if the winner is a HumanPlayer" do
 
       expect(output_stream_double).to receive(:render).with("\nCongratulations! You won!\n")
-      user_interface.announce_winner(HumanPlayer.new(user_interface: double, guess_board: double))
+      user_interface.announce_winner(HumanPlayer.new(user_interface: double, guess_board: double, fleet_board: double))
 
   end
 
