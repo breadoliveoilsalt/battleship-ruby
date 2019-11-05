@@ -199,6 +199,18 @@ class ConsoleUserInterface
        @status += "\n** You sunk the computer's #{guess_response.ship_type}! **\n"
     end
   end
+
+  def show_user_response(coordinate_guess, guess_response)
+    row = coordinate_guess.row
+    column = coordinate_guess.column
+
+    if guess_response.hit?
+      @status += "\nThe Computer Player guessed #{row}#{column} and got a hit!\n"
+      @status += "\n** The Computer Player sunk your #{guess_response.ship_type}! **\n" if guess_response.ship_sunk?
+    else
+      @status += "\nThe Computer Player guessed #{row}#{column} and missed!\n"
+    end
+  end
   
   def announce_winner(winner)
     if winner.is_a?(HumanPlayer)

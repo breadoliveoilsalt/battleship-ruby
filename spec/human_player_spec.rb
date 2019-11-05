@@ -90,6 +90,13 @@ describe HumanPlayer do
       expect(result.ship_type).to eq("Battleship")
     end
 
+    it "tells the user_interface to show to the user the response to the coordinate" do
+      coordinate_guess = double
+      human_player.respond_to_guess(coordinate_guess)
+
+      expect(fake_user_interface.calls).to eq([:show_user_response])
+    end
+
   end
 
   describe "#note_response" do

@@ -24,12 +24,14 @@ class HumanPlayer
     fleet_board.update_data_with_guess(coordinate_guess)
     occupying_ship = fleet_board.find_ship(coordinate_guess)
     if !occupying_ship
-      GuessResponse.respond_with_miss
+      response = GuessResponse.respond_with_miss
     elsif occupying_ship.sunk?
-      GuessResponse.respond_with_hit.add_ship_sunk(occupying_ship.type)
+      response = GuessResponse.respond_with_hit.add_ship_sunk(occupying_ship.type)
     else
-      GuessResponse.respond_with_hit
+      response = GuessResponse.respond_with_hit
     end
+    user_interface.show_user_response(coordinate_guess, response)
+    response
   end
   
   def note_response(coordinate_guess, guess_response)
