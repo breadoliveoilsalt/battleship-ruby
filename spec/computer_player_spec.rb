@@ -18,6 +18,19 @@ describe ComputerPlayer do
 
   end
 
+  describe "#make_guess" do
+  
+    it "returns a coordinate by asking the fleet board for an empty spot" do
+      coordinate = Coordinate.new("a", "1")
+      allow(fleet_board_double).to receive(:get_empty_spot).and_return(coordinate)
+      
+      result = computer_player.make_guess
+      
+      expect(result).to eq(coordinate)
+    end
+
+  end
+
   describe "#respond to guess" do
 
     before(:each) do

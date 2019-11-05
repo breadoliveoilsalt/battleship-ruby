@@ -9,6 +9,10 @@ class ComputerPlayer
     @fleet_board = fleet_board
   end
 
+  def make_guess
+    fleet_board.get_empty_spot
+  end
+
   def respond_to_guess(coordinate_guess)
     fleet_board.update_data_with_guess(coordinate_guess)
     occupying_ship = fleet_board.find_ship(coordinate_guess)
