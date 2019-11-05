@@ -190,9 +190,9 @@ class ConsoleUserInterface
     row = coordinate_guess.row
     column = coordinate_guess.column
     if guess_response.hit?
-      @status = "\n#{row}#{column} was a hit!\n"
+      @status = "\nYour guess of #{row}#{column} was a hit!\n"
     else
-      @status = "\n#{row}#{column} was a miss!\n"
+      @status = "\nYour guess of #{row}#{column} was a miss!\n"
     end
 
     if guess_response.ship_sunk?
