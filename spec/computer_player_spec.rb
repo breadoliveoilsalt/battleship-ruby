@@ -83,6 +83,18 @@ describe ComputerPlayer do
 
   end
 
+  describe "#note_response" do
+
+    it "tells the fleet board to update with a coordinate guess and response from the other player to that guess" do
+      coordinate_guess = double("coordinate guess")
+      guess_response = double("guess response")
+
+      expect(guess_board).to receive(:update_with).with(coordinate_guess, guess_response)
+      computer_player.note_response(coordinate_guess, guess_response)
+    end
+
+  end
+
   describe "#lost_game?" do
 
     it "calls @fleet_board.all_ships_sunk?" do 

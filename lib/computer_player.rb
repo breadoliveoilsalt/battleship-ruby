@@ -25,6 +25,10 @@ class ComputerPlayer
       GuessResponse.respond_with_hit
     end
   end
+  
+  def note_response(coordinate_guess, guess_response)
+    guess_board.update_with(coordinate_guess, guess_response)
+  end
 
   def lost_game?
     fleet_board.all_ships_sunk?
