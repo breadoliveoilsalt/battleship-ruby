@@ -1,12 +1,12 @@
 class GameLoop
 
-  attr_reader :human_player, :computer_player, :current_player, :other_player
+  attr_reader :player_1, :player_2, :current_player, :other_player
   
-  def initialize(human_player, computer_player)
-    @human_player = human_player
-    @computer_player = computer_player 
-    @current_player = human_player 
-    @other_player = computer_player
+  def initialize(player_1, player_2)
+    @player_1 = player_1
+    @player_2 = player_2 
+    @current_player = player_1 
+    @other_player = player_2
   end
 
   def loop_through_game
@@ -24,7 +24,7 @@ class GameLoop
   end
 
   def game_not_over
-    !human_player.lost_game? && !computer_player.lost_game?
+    !player_1.lost_game? && !player_2.lost_game?
   end
 
   def winner

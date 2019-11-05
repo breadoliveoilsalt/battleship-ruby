@@ -5,8 +5,6 @@ class HumanPlayer
 
   attr_reader :user_interface, :guess_board, :fleet_board
 
-  attr_accessor :cheat_board
-
   def initialize(user_interface:, guess_board:, fleet_board:)
     @user_interface = user_interface
     @guess_board = guess_board
