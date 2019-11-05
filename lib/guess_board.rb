@@ -30,4 +30,18 @@ class GuessBoard
     end
   end
 
+  def get_empty_coordinate
+    random_row = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"].sample
+    random_column = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].sample
+    if @data[random_row.to_sym][random_column] == nil
+      return Coordinate.new(random_row, (random_column + 1).to_s)
+    else
+      get_empty_coordinate
+    end
+  end
+
+  def set_data(data)
+    @data = data
+  end
+
 end

@@ -32,9 +32,11 @@ class PlayerBuilder
 
   def build_computer_player
     fleet_board = FleetBoardBuilderWithRandomPlacement.build
+    guess_board = GuessBoard.new
     
     computer_player = ComputerPlayer.new(
-      fleet_board: fleet_board
+      fleet_board: fleet_board,
+      guess_board: guess_board
     )
 
     computer_player

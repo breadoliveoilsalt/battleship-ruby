@@ -3,10 +3,12 @@ require_all 'lib'
 
 describe ComputerPlayer do
 
-  let(:fleet_board_double) { instance_double("FleetPlacementBoard") } 
+  let(:fleet_board) { instance_double("FleetBoard") } 
+  let(:guess_board) { instance_double("GuessBoard") } 
   
   let(:computer_player) { ComputerPlayer.new(
-      fleet_board: fleet_board_double
+      fleet_board: fleet_board,
+      guess_board: guess_board
       )
   }
 
@@ -20,9 +22,9 @@ describe ComputerPlayer do
 
   describe "#make_guess" do
   
-    it "returns a coordinate by asking the fleet board for an empty spot" do
+    it "returns a coordinate by asking the guess board for an empty coordinate" do
       coordinate = Coordinate.new("a", "1")
-      allow(fleet_board_double).to receive(:get_empty_spot).and_return(coordinate)
+      allow(guess_board).to receive(:get_empty_coordinate).and_return(coordinate)
       
       result = computer_player.make_guess
       
@@ -35,20 +37,20 @@ describe ComputerPlayer do
 
     before(:each) do
       coordinate_guess = double
-      allow(fleet_board_double).to receive(:update_data_with_guess)
-      allow(fleet_board_double).to receive(:find_ship)
+      allow(fleet_board).to receive(:update_data_with_guess)
+      allow(fleet_board).to receive(:find_ship)
     end
       
     it "calls @fleet_board.find_ship with a coordinate_guess to see if there is an occupying_ship" do
       coordinate_guess = double
-      expect(fleet_board_double).to receive(:find_ship).with(coordinate_guess)
+      expect(fleet_board).to receive(:find_ship).with(coordinate_guess)
       
       computer_player.respond_to_guess(coordinate_guess)
     end
     
     it "returns a GuessReturn object with #hit? set to false if occupying_ship is nil" do
       coordinate_guess = double
-      allow(fleet_board_double).to receive(:find_ship).with(coordinate_guess).and_return(nil)
+      allow(fleet_board).to receive(:find_ship).with(coordinate_guess).and_return(nil)
       
       result = computer_player.respond_to_guess(coordinate_guess)
 
@@ -59,7 +61,7 @@ describe ComputerPlayer do
     it "returns a GuessReturn object with #hit? set to true if occupying_ship is not nil" do
       coordinate_guess = double
       ship_double = double("ship", "sunk?" => false)
-      allow(fleet_board_double).to receive(:find_ship).with(coordinate_guess).and_return(ship_double)
+      allow(fleet_board).to receive(:find_ship).with(coordinate_guess).and_return(ship_double)
       
       result = computer_player.respond_to_guess(coordinate_guess)
 
@@ -70,7 +72,7 @@ describe ComputerPlayer do
     it "returns a GuessReturn object with #ship_sunk? set to true and a #ship_type if occupying_ship returns true to #sunk?" do
       coordinate_guess = double
       ship_double = double("ship", "sunk?" => true, "type" => "Battleship")
-      allow(fleet_board_double).to receive(:find_ship).with(coordinate_guess).and_return(ship_double)
+      allow(fleet_board).to receive(:find_ship).with(coordinate_guess).and_return(ship_double)
       
       result = computer_player.respond_to_guess(coordinate_guess)
 
@@ -84,7 +86,7 @@ describe ComputerPlayer do
   describe "#lost_game?" do
 
     it "calls @fleet_board.all_ships_sunk?" do 
-      expect(fleet_board_double).to receive("all_ships_sunk?")
+      expect(fleet_board).to receive("all_ships_sunk?")
       computer_player.lost_game?
     end
     

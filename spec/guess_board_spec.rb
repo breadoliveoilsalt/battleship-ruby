@@ -32,4 +32,32 @@ describe GuessBoard do
 
   end
 
+  describe "#get_empty_coordinate" do
+
+    it "returns a random coordinate that has not been guessed before" do
+      guess_board.set_data(
+        { 
+          a: [nil, true, true, true, true, true, true, true, true, true],
+          b: [false, true, true, true, true, true, true, true, true, true],
+          c: [false, true, true, true, true, true, true, true, true, true],
+          d: [false, true, true, true, true, true, true, true, true, true],
+          e: [false, true, true, true, true, true, true, true, true, true],
+          f: [false, true, true, true, true, true, true, true, true, true],
+          g: [false, true, true, true, true, true, true, true, true, true],
+          h: [false, true, true, true, true, true, true, true, true, true],
+          i: [false, true, true, true, true, true, true, true, true, true],
+          j: [false, true, true, true, true, true, true, true, true, nil]
+        }
+      )
+
+      empty_coordinate_1 = Coordinate.new("a", "1")
+      empty_coordinate_2 = Coordinate.new("j", "10")
+
+      result = guess_board.get_empty_coordinate
+      
+      expect(result).to eq(empty_coordinate_1).or eq(empty_coordinate_2)
+    end
+
+  end
+
 end
