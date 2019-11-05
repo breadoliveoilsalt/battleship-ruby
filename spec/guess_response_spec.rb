@@ -12,18 +12,18 @@ describe GuessResponse do
 
   end
   
-  describe "#boat_sunk?" do
+  describe "#ship_sunk?" do
 
     it "defaults to false" do
-      expect(guess_response.boat_sunk?).to be(false)
+      expect(guess_response.ship_sunk?).to be(false)
     end
 
   end
 
-  describe "#boat_type" do
+  describe "#ship_type" do
 
     it "defaults to nil" do
-      expect(guess_response.boat_type).to be(nil)
+      expect(guess_response.ship_type).to be(nil)
     end
 
   end
@@ -68,34 +68,44 @@ describe GuessResponse do
 
   end
 
-  describe "#add_boat_sunk" do
+  describe "#add_ship_sunk" do
     
-    it "sets #boat_sunk? to true" do
-      guess_response.add_boat_sunk
+    it "sets #ship_sunk? to true" do
+      ship_type = "Battleship"
+      guess_response.add_ship_sunk(ship_type)
       
-      expect(guess_response.boat_sunk?).to be(true)
+      expect(guess_response.ship_sunk?).to be(true)
+    end
+
+    it "sets #ship_type to the argument passed in" do
+      ship_type = "Battleship"
+      guess_response.add_ship_sunk(ship_type)
+      
+      expect(guess_response.ship_type).to be(ship_type)
     end
 
     it "returns self" do
-      expect(guess_response.add_boat_sunk).to eq(guess_response)
+      ship_type = "Battleship"
+
+      expect(guess_response.add_ship_sunk(ship_type)).to eq(guess_response)
     end
 
   end
 
-  describe "#add_boat_type" do
+  describe "#add_ship_type" do
     
-    it "sets #boat_type to the argument passed in" do
-      boat_type_arg = "Destroyer"  
+    it "sets #ship_type to the argument passed in" do
+      ship_type_arg = "Destroyer"  
 
-      guess_response.add_boat_type(boat_type_arg)
+      guess_response.add_ship_type(ship_type_arg)
 
-      expect(guess_response.boat_type).to eq(boat_type_arg)
+      expect(guess_response.ship_type).to eq(ship_type_arg)
     end
 
     it "returns self" do
-      boat_type_arg = "Destroyer"  
+      ship_type_arg = "Destroyer"  
 
-      response = guess_response.add_boat_type(boat_type_arg)
+      response = guess_response.add_ship_type(ship_type_arg)
 
       expect(response).to eq(guess_response)
     end
