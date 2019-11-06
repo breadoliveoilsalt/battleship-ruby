@@ -100,12 +100,25 @@ describe FleetBoard do
     end
 
     it "marks a ship_segment as hit if the coordinate_guess passed in is a hit" do
-      segment = instance_double("ShipSegment")
+      segment = instance_double("ShipSegment", "ship_sunk?" => false)
       fleet_board.instance_variable_get("@data")[:a][0] = segment
       coordinate = Coordinate.new("a", "1")
       
       expect(segment).to receive(:mark_as_hit)
       fleet_board.update_data_with_guess(coordinate)
+    end
+
+    it "updates the list of sunk and unsunk ships if the coordinate guess sinks a ship" do
+      segment = instance_double("ShipSegment", "ship_sunk?" => true, :ship_type => "Battleship")
+      allow(segment).to receive(:mark_as_hit)
+      fleet_board.instance_variable_get("@data")[:a][0] = segment
+      fleet_board.instance_variable_set("@unsunk_ships", ["Battleship"])
+      fleet_board.instance_variable_set("@sunk_ships", ["Submarine"])
+      coordinate = Coordinate.new("a", "1")
+      
+      fleet_board.update_data_with_guess(coordinate)
+
+      expect(fleet_board.sunk_ships).to eq(["Submarine", "Battleship"])
     end
   end
 

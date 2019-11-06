@@ -45,9 +45,9 @@ class FleetBoard
       @data[row][column] = false
     else
       occupant.mark_as_hit
-      if occupant.ship.sunk?
-        sunk_ships.push(occupant.ship.type)
-        unsunk_ships.delete(occupant.ship.type)
+      if occupant.ship_sunk?
+        sunk_ships.push(occupant.ship_type)
+        unsunk_ships.delete(occupant.ship_type)
       end
     end 
   end
