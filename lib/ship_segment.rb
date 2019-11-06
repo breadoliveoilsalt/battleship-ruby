@@ -33,4 +33,12 @@ class ShipSegment
     self
   end
 
+  def ship_sunk?
+    ship.sunk?
+  end
+
+  def ship_type
+    ship.type
+  end
+
 end

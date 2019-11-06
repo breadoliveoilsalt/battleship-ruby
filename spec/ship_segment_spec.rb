@@ -1,4 +1,5 @@
 require_relative '../lib/ship_segment.rb'
+require_relative '../lib/ship.rb'
 
 describe ShipSegment do
 
@@ -105,6 +106,35 @@ describe ShipSegment do
 
       expect(result).to eq(ship_segment)
     end
+  end
+
+  describe "#ship_sunk?" do
+
+    it "returns true if its ship is sunk" do 
+      ship = instance_double("Ship", "sunk?" => true)
+      ship_segment.set_ship(ship)
+
+      expect(ship_segment.ship_sunk?).to be(true)
+    end
+
+    it "returns false if its ship is not sunk" do 
+      ship = instance_double("Ship", "sunk?" => false)
+      ship_segment.set_ship(ship)
+
+      expect(ship_segment.ship_sunk?).to be(false)
+    end
+
+  end
+
+  describe "#ship_type" do
+
+    it "returns the type of the ship to which the segment belongs" do
+      ship = instance_double("Ship", "type" => "Battleship")
+      ship_segment.set_ship(ship)
+
+      expect(ship_segment.ship_type).to eq("Battleship")
+    end
+
   end
 
 end
