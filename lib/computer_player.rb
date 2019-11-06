@@ -3,10 +3,15 @@ require_relative './coordinate.rb'
 
 class ComputerPlayer
 
-  attr_reader :fleet_board
+  attr_reader :fleet_board, :guess_board
 
-  def initialize(fleet_board:)
+  def initialize(fleet_board:, guess_board:)
     @fleet_board = fleet_board
+    @guess_board = guess_board
+  end
+
+  def make_guess
+    guess_board.get_empty_coordinate
   end
 
   def respond_to_guess(coordinate_guess)
@@ -19,6 +24,10 @@ class ComputerPlayer
     else
       GuessResponse.respond_with_hit
     end
+  end
+  
+  def note_response(coordinate_guess, guess_response)
+    guess_board.update_with(coordinate_guess, guess_response)
   end
 
   def lost_game?

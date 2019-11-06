@@ -190,13 +190,25 @@ class ConsoleUserInterface
     row = coordinate_guess.row
     column = coordinate_guess.column
     if guess_response.hit?
-      @status = "\n#{row}#{column} was a hit!\n"
+      @status = "\nYour guess of #{row}#{column} was a hit!\n"
     else
-      @status = "\n#{row}#{column} was a miss!\n"
+      @status = "\nYour guess of #{row}#{column} was a miss!\n"
     end
 
     if guess_response.ship_sunk?
        @status += "\n** You sunk the computer's #{guess_response.ship_type}! **\n"
+    end
+  end
+
+  def show_user_response(coordinate_guess, guess_response)
+    row = coordinate_guess.row
+    column = coordinate_guess.column
+
+    if guess_response.hit?
+      @status += "\nThe Computer Player guessed #{row}#{column} and got a hit!\n"
+      @status += "\n** The Computer Player sunk your #{guess_response.ship_type}! **\n" if guess_response.ship_sunk?
+    else
+      @status += "\nThe Computer Player guessed #{row}#{column} and missed!\n"
     end
   end
   

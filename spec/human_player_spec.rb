@@ -14,14 +14,14 @@ describe HumanPlayer do
 
   end
 
-  let(:guess_board_double) { instance_double("GuessBoard") }
+  let(:guess_board) { instance_double("GuessBoard") }
   let (:fake_user_interface) { FakeUserInterface.new }
-  let(:fleet_board_double) { instance_double("FleetBoard") }
+  let(:fleet_board) { instance_double("FleetBoard") }
 
   let(:human_player) { HumanPlayer.new(
     user_interface: fake_user_interface,
-    guess_board: guess_board_double,
-    fleet_board: fleet_board_double
+    guess_board: guess_board,
+    fleet_board: fleet_board
   )}
 
   describe "#make_guess" do
@@ -42,17 +42,74 @@ describe HumanPlayer do
 
   end
 
+  describe "#respond to guess" do
+
+    before(:each) do
+      coordinate_guess = double
+      allow(fleet_board).to receive(:update_data_with_guess)
+      allow(fleet_board).to receive(:find_ship)
+    end
+      
+    it "calls @fleet_board.find_ship with a coordinate_guess to see if there is an occupying_ship" do
+      coordinate_guess = double
+      expect(fleet_board).to receive(:find_ship).with(coordinate_guess)
+      
+      human_player.respond_to_guess(coordinate_guess)
+    end
+    
+    it "returns a GuessReturn object with #hit? set to false if occupying_ship is nil" do
+      coordinate_guess = double
+      allow(fleet_board).to receive(:find_ship).with(coordinate_guess).and_return(nil)
+      
+      result = human_player.respond_to_guess(coordinate_guess)
+
+      expect(result).to be_a(GuessResponse)
+      expect(result.hit?).to be(false)
+    end
+
+    it "returns a GuessReturn object with #hit? set to true if occupying_ship is not nil" do
+      coordinate_guess = double
+      ship_double = double("ship", "sunk?" => false)
+      allow(fleet_board).to receive(:find_ship).with(coordinate_guess).and_return(ship_double)
+      
+      result = human_player.respond_to_guess(coordinate_guess)
+
+      expect(result).to be_a(GuessResponse)
+      expect(result.hit?).to be(true)
+    end
+
+    it "returns a GuessReturn object with #ship_sunk? set to true and a #ship_type if occupying_ship returns true to #sunk?" do
+      coordinate_guess = double
+      ship_double = double("ship", "sunk?" => true, "type" => "Battleship")
+      allow(fleet_board).to receive(:find_ship).with(coordinate_guess).and_return(ship_double)
+      
+      result = human_player.respond_to_guess(coordinate_guess)
+
+      expect(result).to be_a(GuessResponse)
+      expect(result.ship_sunk?).to be(true)
+      expect(result.ship_type).to eq("Battleship")
+    end
+
+    it "tells the user_interface to show to the user the response to the coordinate" do
+      coordinate_guess = double
+      human_player.respond_to_guess(coordinate_guess)
+
+      expect(fake_user_interface.calls).to eq([:show_user_response])
+    end
+
+  end
+
   describe "#note_response" do
 
     before(:each) do
-      allow(guess_board_double).to receive(:update_with)
+      allow(guess_board).to receive(:update_with)
     end
 
     it "calls #update_with on @guess_board with its own arguments for coordinate_guess and guess_response" do
       coordinate_guess = double("coordinate guess")
       guess_response = double("guess response")
 
-      expect(guess_board_double).to receive(:update_with).with(coordinate_guess, guess_response)
+      expect(guess_board).to receive(:update_with).with(coordinate_guess, guess_response)
 
       human_player.note_response(coordinate_guess, guess_response)
     end
@@ -65,6 +122,19 @@ describe HumanPlayer do
       expect(fake_user_interface.calls).to eq([:show_result_of_guess])
     end
 
+  end
+
+  describe "#lost_game?" do
+
+    it "returns the response from asking the fleet board if all ships are sunk" do 
+      
+      allow(fleet_board).to receive("all_ships_sunk?").and_return(true)
+
+      result = human_player.lost_game?
+
+      expect(result).to eq(true)
+    end
+    
   end
 end
 
