@@ -108,26 +108,54 @@ class ConsoleUserInterface
     (0..4).each do | index |
       unsunk_guess_board_ship = stringify_unsunk_ship(guess_board.unsunk_ships[index])
       sunk_guess_board_ship = stringify_sunk_ship(guess_board.sunk_ships[index])
-      str += "              " + unsunk_guess_board_ship + sunk_guess_board_ship + "\n"
+      unsunk_fleet_board_ship = stringify_unsunk_ship(fleet_board.unsunk_ships[index])
+      sunk_fleet_board_ship = stringify_sunk_ship(fleet_board.sunk_ships[index])
+      str += leading_spaces + unsunk_guess_board_ship + sunk_guess_board_ship + unsunk_fleet_board_ship + sunk_fleet_board_ship + "\n"
     end
     str 
   end
 
+  def leading_spaces
+    "              "
+  end
+
+  def padding_for_unsunk_ship
+    30
+  end
+
+  def padding_for_sunk_ship
+    40
+  end
+  
+  def spaces_in_lieu_of_unsunk_ship
+    str = ""
+    padding_for_unsunk_ship.times { str += " " }
+    str
+  end
+
+  def spaces_in_lieu_of_sunk_ship
+    str = ""
+    padding_for_sunk_ship.times { str += " " }
+    str
+  end
+
   def stringify_unsunk_ship(unsunk_ship_string)
     if unsunk_ship_string
-      padding = 30 - unsunk_ship_string.length
+      padding = padding_for_unsunk_ship - unsunk_ship_string.length
       padding.times { unsunk_ship_string += " " }
       unsunk_ship_string
     else
-      "                              "
+      spaces_in_lieu_of_unsunk_ship
     end
   end
 
   def stringify_sunk_ship(sunk_ship_string)
     if sunk_ship_string
+      padding = padding_for_sunk_ship - sunk_ship_string.length
+      padding.times { sunk_ship_string += " " }
       sunk_ship_string
     else
-      "                               "
+      spaces_in_lieu_of_sunk_ship
     end
   end
 

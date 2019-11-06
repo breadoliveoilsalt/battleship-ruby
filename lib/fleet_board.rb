@@ -1,6 +1,6 @@
 class FleetBoard
 
-  attr_reader :ships, :data
+  attr_reader :ships, :data, :unsunk_ships, :sunk_ships
 
   def initialize(ships:)
     @ships = ships 
@@ -16,6 +16,8 @@ class FleetBoard
       i: Array.new(10, nil),
       j: Array.new(10, nil)
     }
+    @unsunk_ships = ["Carrier", "Battleship", "Destroyer", "Submarine", "Patrol Boat"]
+    @sunk_ships = [ ]
   end
 
   def set_ships(ships)
@@ -43,6 +45,10 @@ class FleetBoard
       @data[row][column] = false
     else
       occupant.mark_as_hit
+      if occupant.ship.sunk?
+        sunk_ships.push(occupant.ship.type)
+        unsunk_ships.delete(occupant.ship.type)
+      end
     end 
   end
   
