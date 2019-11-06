@@ -16,6 +16,10 @@ class ComputerPlayer
 
   def respond_to_guess(coordinate_guess)
     fleet_board.update_data_with_guess(coordinate_guess)
+    generate_response_to(coordinate_guess)
+  end
+  
+  def generate_response_to(coordinate_guess)
     occupying_ship = fleet_board.find_ship(coordinate_guess)
     if !occupying_ship
       GuessResponse.respond_with_miss
@@ -25,7 +29,7 @@ class ComputerPlayer
       GuessResponse.respond_with_hit
     end
   end
-  
+
   def note_response(coordinate_guess, guess_response)
     guess_board.update_with(coordinate_guess, guess_response)
   end
