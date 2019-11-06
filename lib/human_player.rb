@@ -12,7 +12,7 @@ class HumanPlayer
   end
 
   def make_guess
-    user_interface.show_boards(guess_board, fleet_board)
+    user_interface.show_game(guess_board, fleet_board)
     row = user_interface.get_row
     column = user_interface.get_column
     Coordinate.new(row, column)
@@ -21,7 +21,8 @@ class HumanPlayer
   def respond_to_guess(coordinate_guess)
     fleet_board.update_data_with_guess(coordinate_guess)
     response = generate_response_to(coordinate_guess)
-    user_interface.show_user_response(coordinate_guess, response)
+    user_interface.record_response(coordinate_guess, response)
+    user_interface.show_game(guess_board, fleet_board)
     response
   end
 
@@ -38,7 +39,8 @@ class HumanPlayer
   
   def note_response(coordinate_guess, guess_response)
     guess_board.update_with(coordinate_guess, guess_response)
-    user_interface.show_result_of_guess(coordinate_guess, guess_response)
+    user_interface.record_result_of_guess(coordinate_guess, guess_response)
+    user_interface.show_game(guess_board, fleet_board)
   end
   
   def lost_game?

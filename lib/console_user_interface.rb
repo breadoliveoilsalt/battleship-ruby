@@ -31,7 +31,7 @@ class ConsoleUserInterface
     output_stream.render(str)
   end
 
-  def show_boards(guess_board, fleet_board)
+  def show_game(guess_board, fleet_board)
     clear_view
     str = double_line
     str += "|                          GUESS BOARD                            | * |                          FLEET BOARD                            |\n" 
@@ -214,7 +214,7 @@ class ConsoleUserInterface
     column.to_i >= 1 && column.to_i <= 10
   end
   
-  def show_result_of_guess(coordinate_guess, guess_response)
+  def record_result_of_guess(coordinate_guess, guess_response)
     row = coordinate_guess.row
     column = coordinate_guess.column
     if guess_response.hit?
@@ -228,7 +228,7 @@ class ConsoleUserInterface
     end
   end
 
-  def show_user_response(coordinate_guess, guess_response)
+  def record_response(coordinate_guess, guess_response)
     row = coordinate_guess.row
     column = coordinate_guess.column
 
