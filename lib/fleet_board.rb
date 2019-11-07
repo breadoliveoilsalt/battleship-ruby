@@ -4,18 +4,7 @@ class FleetBoard
 
   def initialize(ships:)
     @ships = ships 
-    @data = {
-      a: Array.new(10, nil),
-      b: Array.new(10, nil),
-      c: Array.new(10, nil),
-      d: Array.new(10, nil),
-      e: Array.new(10, nil),
-      f: Array.new(10, nil),
-      g: Array.new(10, nil),
-      h: Array.new(10, nil),
-      i: Array.new(10, nil),
-      j: Array.new(10, nil)
-    }
+    @data = Array.new(10, Array.new(10,nil))
     @unsunk_ships = ["Carrier", "Battleship", "Destroyer", "Submarine", "Patrol Boat"]
     @sunk_ships = [ ]
   end
@@ -37,29 +26,41 @@ class FleetBoard
     nil
   end
 
-  def update_data_with_guess(coordinate_guess)
-    row = coordinate_guess.row.to_sym
-    column = coordinate_guess.column.to_i - 1
-    occupant = @data[row][column] 
+  def update_with(coordinate_guess)
+    row = coordinate_guess.row
+    column = coordinate_guess.column
+    occupant = get(row, column)
     if !occupant
-      @data[row][column] = false
+      set(row, column, false)
     else
       occupant.mark_as_hit
-      if occupant.ship_sunk?
-        sunk_ships.push(occupant.ship_type)
-        unsunk_ships.delete(occupant.ship_type)
-      end
+      update_ships_list(occupant)
     end 
   end
   
+  def update_ships_list(occupant)
+    if occupant.ship_sunk?
+      sunk_ships.push(occupant.ship_type)
+      unsunk_ships.delete(occupant.ship_type)
+    end
+  end
+
   def update_data_with_ships
     ships.each do | ship |
       ship.segments.each do | segment |
-        row = segment.coordinate.row.to_sym
-        column = segment.coordinate.column.to_i - 1
-        @data[row][column] = segment
+        row = segment.coordinate.row
+        column = segment.coordinate.column
+        set(row, column, segment)
       end
     end
+  end
+
+  def get(row, column)
+    @data[row][column]
+  end
+
+  def set(row, column, value)
+    @data[row][column] = value
   end
 
 end
