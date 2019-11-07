@@ -1,6 +1,7 @@
 require_relative '../lib/guess_board.rb'
 require_relative '../lib/coordinate.rb'
 require_relative '../lib/guess_response.rb'
+require_relative '../lib/board.rb'
 
 describe GuessBoard do
 
@@ -14,7 +15,8 @@ describe GuessBoard do
       
       guess_board.update_with(coordinate_guess, response)
 
-      expect(guess_board.data[:a][0]).to eq(true)
+      expect(guess_board.board.get(:a, 0)).to eq(true)
+
     end
 
     it "updates the list of sunk ships and unsunk ships if the response indicates that a ship has been sunk" do
