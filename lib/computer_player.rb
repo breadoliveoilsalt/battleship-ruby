@@ -15,7 +15,7 @@ class ComputerPlayer
   end
 
   def respond_to_guess(coordinate_guess)
-    fleet_board.update_data_with_guess(coordinate_guess)
+    fleet_board.update_with(coordinate_guess)
     generate_response_to(coordinate_guess)
   end
   
