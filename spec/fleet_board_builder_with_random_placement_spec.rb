@@ -42,6 +42,7 @@ describe FleetBoardBuilderWithRandomPlacement do
       end
 
     end
+
   end
 
   def check_each_segment_has_a_coordinate(ships)

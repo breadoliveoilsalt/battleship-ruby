@@ -18,18 +18,18 @@ class AIForPlacingShips
 
   def place_ship(ship)
     orientation = ["vertical", "horizontal"].sample
-    random_row = possible_rows(ship, orientation)
-    random_column = possible_columns(ship, orientation)
+    random_row = get_possible_row(ship, orientation)
+    random_column = get_possible_column(ship, orientation)
     starting_coordinate = [random_row, random_column]
     check_if_valid_placement(starting_coordinate, ship, orientation)
   end
  
-  def possible_rows(ship, orientation)
-    orientation == "horizontal" ? rand(0...board_length - ship.length) : rand(0...board_length)
+  def get_possible_row(ship, orientation)
+    orientation == "horizontal" ? rand(0...board_length) : rand(0...(board_length - ship.length))
   end
 
-  def possible_columns(ship, orientation)
-    orientation == "vertical" ? rand(0...board_length) : rand(0...board_length - ship.length) 
+  def get_possible_column(ship, orientation)
+    orientation == "vertical" ? rand(0...board_length) : rand(0...(board_length - ship.length))
   end
 
   def board_length
