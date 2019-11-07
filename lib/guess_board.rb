@@ -1,6 +1,6 @@
 class GuessBoard
 
-  attr_reader :board, :unsunk_ships, :sunk_ships
+  attr_reader :data, :unsunk_ships, :sunk_ships
   
   def initialize
     @data = [

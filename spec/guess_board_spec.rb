@@ -1,7 +1,6 @@
 require_relative '../lib/guess_board.rb'
 require_relative '../lib/coordinate.rb'
 require_relative '../lib/guess_response.rb'
-require_relative '../lib/board.rb'
 
 describe GuessBoard do
 
