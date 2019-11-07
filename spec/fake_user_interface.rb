@@ -10,8 +10,8 @@ class FakeUserInterface
     @calls << :clear_view
   end
 
-  def show_boards(guess_board, fleet_board)
-    @calls << :show_boards
+  def show_game(guess_board, fleet_board)
+    @calls << :show_game
   end
 
   def show_fleet_board(board)
@@ -32,12 +32,12 @@ class FakeUserInterface
     "1"
   end
 
-  def show_user_response(coordinate_guess, response)
-    @calls << :show_user_response
+  def record_response(coordinate_guess, response)
+    @calls << :record_response
   end
 
-  def show_result_of_guess(coordinate_guess, guess_response)
-    @calls << :show_result_of_guess
+  def record_result_of_guess(coordinate_guess, guess_response)
+    @calls << :record_result_of_guess
   end
 
 end

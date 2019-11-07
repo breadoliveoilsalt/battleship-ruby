@@ -29,7 +29,7 @@ describe HumanPlayer do
     it "shows the boards and asks the user for a row and column guess" do
       human_player.make_guess
 
-      expect(fake_user_interface.calls).to eq([:show_boards, :get_row, :get_column])
+      expect(fake_user_interface.calls).to eq([:show_game, :get_row, :get_column])
     end
 
     it "returns a coordinate object based on calling #get_row and #get_column on @user_interface" do
@@ -90,11 +90,11 @@ describe HumanPlayer do
       expect(result.ship_type).to eq("Battleship")
     end
 
-    it "tells the user_interface to show to the user the response to the coordinate" do
+    it "tells the user_interface to record the user response to the coordinate and show the game" do
       coordinate_guess = double
       human_player.respond_to_guess(coordinate_guess)
 
-      expect(fake_user_interface.calls).to eq([:show_user_response])
+      expect(fake_user_interface.calls).to eq([:record_response, :show_game])
     end
 
   end
@@ -114,12 +114,12 @@ describe HumanPlayer do
       human_player.note_response(coordinate_guess, guess_response)
     end
 
-    it "calls #show_result_of_guess on @user_interface and passes its own arguments for coordinate_guess and guess_response" do
+    it "tells the user interface to record the result of the guess and show the game" do
       coordinate_guess = double("coordinate guess")
       guess_response = double("guess response")
 
       human_player.note_response(coordinate_guess, guess_response)
-      expect(fake_user_interface.calls).to eq([:show_result_of_guess])
+      expect(fake_user_interface.calls).to eq([:record_result_of_guess, :show_game])
     end
 
   end
@@ -136,5 +136,6 @@ describe HumanPlayer do
     end
     
   end
+
 end
 
