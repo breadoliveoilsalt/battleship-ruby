@@ -19,7 +19,7 @@ class HumanPlayer
   end
 
   def respond_to_guess(coordinate_guess)
-    fleet_board.update_data_with_guess(coordinate_guess)
+    fleet_board.update_with(coordinate_guess)
     response = generate_response_to(coordinate_guess)
     user_interface.record_response(coordinate_guess, response)
     user_interface.show_game(guess_board, fleet_board)

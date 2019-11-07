@@ -10,10 +10,6 @@ class ConsoleUserInterface
     @status = ""
   end
 
-  def rows
-    ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
-  end
-  
   def clear_view
     system("cls") || system("clear")
   end
@@ -25,7 +21,7 @@ class ConsoleUserInterface
     str += line
     str += "|     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |\n"
     str += line
-    rows.each do | row |
+    (0...fleet_board.data.length).each do | row |
       str += stringify_fleet_board_row(row, fleet_board) + "\n" + line
     end
     output_stream.render(str)
@@ -38,7 +34,7 @@ class ConsoleUserInterface
     str += double_line
     str += "|     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  | * |     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10  |\n"
     str += double_line
-    rows.each do | row |
+    (0...fleet_board.data.length).each do | row |
       str += stringify_guess_board_row(row, guess_board)
       str += " * "
       str += stringify_fleet_board_row(row, fleet_board)
@@ -55,8 +51,8 @@ class ConsoleUserInterface
   end
   
   def stringify_guess_board_row(row, guess_board)
-    str = "|  #{row}  |"
-    guess_board.data[row.to_sym].each do | column |
+    str = "|  #{row_to_string(row)}  |"
+    guess_board.data[row].each do | column |
       str += guess_board_column_value_to_string(column) 
     end
     str
@@ -73,11 +69,15 @@ class ConsoleUserInterface
   end
 
   def stringify_fleet_board_row(row, fleet_board)
-    str = "|  #{row}  |"
-    fleet_board.data[row.to_sym].each do | column |
+    str = "|  #{row_to_string(row)}  |"
+    fleet_board.data[row].each do | column |
       str += fleet_board_column_value_to_string(column)
     end
     str
+  end
+
+  def row_to_string(row)
+    ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"][row]
   end
   
   def fleet_board_column_value_to_string(column)
@@ -184,7 +184,7 @@ class ConsoleUserInterface
 
   def validate_row(row)
     if row_within_range?(row)
-      row
+      row_to_data(row)
     else
       output_stream.render("\nSorry, invalid selection.\n")
       get_row
@@ -193,6 +193,14 @@ class ConsoleUserInterface
   
   def row_within_range?(row)
     row.length == 1 && row >= "a" && row <= "j"
+  end
+
+  def row_to_data(row)
+    {a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7, i: 8, j: 9}[row.to_sym]
+  end
+  
+  def column_to_string(column)
+    (column + 1).to_s
   end
   
   def get_column
@@ -203,7 +211,7 @@ class ConsoleUserInterface
 
   def validate_column(column)
     if column_within_range?(column)
-      column
+      column_to_data(column)
     else
       output_stream.render("\nSorry, invalid selection.\n")
       get_column
@@ -213,14 +221,18 @@ class ConsoleUserInterface
   def column_within_range?(column)
     column.to_i >= 1 && column.to_i <= 10
   end
+
+  def column_to_data(column)
+    column.to_i - 1
+  end
   
   def record_result_of_guess(coordinate_guess, guess_response)
     row = coordinate_guess.row
     column = coordinate_guess.column
     if guess_response.hit?
-      @status = "\nYour guess of #{row}#{column} was a hit!\n"
+      @status = "\nYour guess of #{row_to_string(row)}#{column_to_string(column)} was a hit!\n"
     else
-      @status = "\nYour guess of #{row}#{column} was a miss!\n"
+      @status = "\nYour guess of #{row_to_string(row)}#{column_to_string(column)} was a miss!\n"
     end
 
     if guess_response.ship_sunk?
@@ -233,10 +245,10 @@ class ConsoleUserInterface
     column = coordinate_guess.column
 
     if guess_response.hit?
-      @status += "\nThe Computer Player guessed #{row}#{column} and got a hit!\n"
+      @status += "\nThe Computer Player guessed #{row_to_string(row)}#{column_to_string(column)} and got a hit!\n"
       @status += "\n** The Computer Player sunk your #{guess_response.ship_type}! **\n" if guess_response.ship_sunk?
     else
-      @status += "\nThe Computer Player guessed #{row}#{column} and missed!\n"
+      @status += "\nThe Computer Player guessed #{row_to_string(row)}#{column_to_string(column)} and missed!\n"
     end
   end
   

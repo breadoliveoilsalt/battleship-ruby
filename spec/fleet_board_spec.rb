@@ -44,19 +44,20 @@ describe FleetBoard do
 
   describe "#data" do
 
-    it "defaults to a hash with keys for the letters 'a' through 'j', each with a value of an array filled with 10 nils" do 
-      expected_result = {
-        a: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-        b: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-        c: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-        d: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-        e: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-        f: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-        g: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-        h: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-        i: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-        j: [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
-      }
+    it "defaults to a 10 x 10 two dimensional array with each value being nil" do 
+      expected_result = 
+        [
+          [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+          [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+          [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+          [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+          [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+          [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+          [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+          [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+          [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+          [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
+        ]
       
       expect(fleet_board.data).to eq(expected_result)
     end
@@ -89,44 +90,44 @@ describe FleetBoard do
 
   end
 
-  describe "#update_data_with_guess" do 
+  describe "#update_with" do 
 
     it "marks a data coordinate as false if the coordinate_guess passed in is a miss" do
-      coordinate = Coordinate.new("a", "1")
+      coordinate = Coordinate.new(0, 0)
       
-      fleet_board.update_data_with_guess(coordinate)
+      fleet_board.update_with(coordinate)
 
-      expect(fleet_board.data[:a][0]).to be(false)
+      expect(fleet_board.get(0, 0)).to be(false)
     end
 
     it "marks a ship_segment as hit if the coordinate_guess passed in is a hit" do
       segment = instance_double("ShipSegment", "ship_sunk?" => false)
-      fleet_board.instance_variable_get("@data")[:a][0] = segment
-      coordinate = Coordinate.new("a", "1")
+      fleet_board.set(0, 0, segment)
+      coordinate = Coordinate.new(0, 0)
       
       expect(segment).to receive(:mark_as_hit)
-      fleet_board.update_data_with_guess(coordinate)
+      fleet_board.update_with(coordinate)
     end
 
     it "updates the list of sunk and unsunk ships if the coordinate guess sinks a ship" do
       segment = instance_double("ShipSegment", "ship_sunk?" => true, :ship_type => "Battleship")
       allow(segment).to receive(:mark_as_hit)
-      fleet_board.instance_variable_get("@data")[:a][0] = segment
+      fleet_board.set(0, 0, segment)
       fleet_board.instance_variable_set("@unsunk_ships", ["Battleship"])
       fleet_board.instance_variable_set("@sunk_ships", ["Submarine"])
-      coordinate = Coordinate.new("a", "1")
+      coordinate = Coordinate.new(0, 0)
       
-      fleet_board.update_data_with_guess(coordinate)
+      fleet_board.update_with(coordinate)
 
       expect(fleet_board.sunk_ships).to eq(["Submarine", "Battleship"])
     end
   end
 
-  describe "update_data_with_ships" do
+  describe "#update_data_with_ships" do
 
     it "places ship segments within the data" do
-      segment1 = instance_double("ShipSegment1", :coordinate => Coordinate.new("a", "1"))
-      segment2 = instance_double("ShipSegment2", :coordinate => Coordinate.new("j", "10"))
+      segment1 = instance_double("ShipSegment1", :coordinate => Coordinate.new(0, 0))
+      segment2 = instance_double("ShipSegment2", :coordinate => Coordinate.new(9, 9))
 
       ship1 = instance_double("Ship1", :segments => [segment1])
       ship2 = instance_double("Ship2", :segments => [segment2])
@@ -135,8 +136,29 @@ describe FleetBoard do
 
       fleet_board.update_data_with_ships 
 
-      expect(fleet_board.data[:a][0]).to eq(segment1)
-      expect(fleet_board.data[:j][9]).to eq(segment2)
+      expect(fleet_board.data[0][0]).to eq(segment1)
+      expect(fleet_board.data[9][9]).to eq(segment2)
+    end
+
+  end
+
+  describe "#get" do
+
+    it "gets the value in the data according to row and column" do
+      fleet_board.set(0, 0, "value")
+
+      expect(fleet_board.get(0, 0)).to eq("value")
+    end
+
+  end
+
+  describe "#set" do
+
+    it "sets the value in the data according to row and column" do
+      fleet_board.set(0, 0, "value")
+
+      data = fleet_board.instance_variable_get("@data")
+      expect(data[0][0]).to eq("value")
     end
 
   end

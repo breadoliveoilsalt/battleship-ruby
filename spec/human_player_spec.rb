@@ -46,7 +46,7 @@ describe HumanPlayer do
 
     before(:each) do
       coordinate_guess = double
-      allow(fleet_board).to receive(:update_data_with_guess)
+      allow(fleet_board).to receive(:update_with)
       allow(fleet_board).to receive(:find_ship)
     end
       

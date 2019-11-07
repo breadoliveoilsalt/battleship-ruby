@@ -47,8 +47,8 @@ describe PlayerBuilder do
           human_player = player_builder.build_players_with_boards_and_ships[1]
           
           segment_count = 0
-          human_player.fleet_board.data.each do | row, columns |
-            columns.each do | column |
+          human_player.fleet_board.data.each do | row |
+            row.each do | column |
               if column.is_a?(ShipSegment)
                 segment_count += 1
               end
@@ -84,8 +84,8 @@ describe PlayerBuilder do
         computer_player = player_builder.build_players_with_boards_and_ships[1]
         
         segment_count = 0
-        computer_player.fleet_board.data.each do | row, columns |
-          columns.each do | column |
+        computer_player.fleet_board.data.each do | row |
+          row.each do | column |
             if column.is_a?(ShipSegment)
               segment_count += 1
             end

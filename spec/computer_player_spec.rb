@@ -23,7 +23,7 @@ describe ComputerPlayer do
   describe "#make_guess" do
   
     it "returns a coordinate by asking the guess board for an empty coordinate" do
-      coordinate = Coordinate.new("a", "1")
+      coordinate = Coordinate.new(0, 0)
       allow(guess_board).to receive(:get_empty_coordinate).and_return(coordinate)
       
       result = computer_player.make_guess
@@ -37,7 +37,7 @@ describe ComputerPlayer do
 
     before(:each) do
       coordinate_guess = double
-      allow(fleet_board).to receive(:update_data_with_guess)
+      allow(fleet_board).to receive(:update_with)
       allow(fleet_board).to receive(:find_ship)
     end
       

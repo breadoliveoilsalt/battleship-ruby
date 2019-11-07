@@ -26,17 +26,17 @@ describe ConsoleUserInterface do
 
   describe "#get_row" do
     
-    it "returns the return value of reading a line from the input stream" do
+    it "reads a line from the input stream" do
       allow(input_stream_double).to receive(:read_line).and_return("a")
 
-      expect(user_interface.get_row).to eq("a")
+      expect(input_stream_double).to receive(:read_line)
       user_interface.get_row
     end
   
-    it "only returns a valid row between 'a' and 'j'" do
-      allow(input_stream_double).to receive(:read_line).and_return("z", "56", "", "a")
+    it "only returns a valid row between 0 and 9 based on whether the user enters the letters a through j" do
+      allow(input_stream_double).to receive(:read_line).and_return("z", "56", "", "j")
 
-      expect(user_interface.get_row).to eq("a")
+      expect(user_interface.get_row).to eq(9)
       user_interface.get_row
     end
     
@@ -44,17 +44,17 @@ describe ConsoleUserInterface do
 
   describe "#get_column" do
     
-    it "returns the return value of reading a line from the input stream" do
+    it "reads a line from the input stream" do
       allow(input_stream_double).to receive(:read_line).and_return("1")
 
-      expect(user_interface.get_column).to eq("1")
+      expect(input_stream_double).to receive(:read_line)
       user_interface.get_column
     end
   
-    it "only returns a valid column between '1' and '10'" do
+    it "only returns a valid column between 0 and 9 based on whether the user enters a number from 1 to 10" do
       allow(input_stream_double).to receive(:read_line).and_return("a", "56", "", "1")
 
-      expect(user_interface.get_column).to eq("1")
+      expect(user_interface.get_column).to eq(0)
       user_interface.get_column
     end
     

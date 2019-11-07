@@ -11,7 +11,7 @@ describe AIForPlacingShips do
 
     it "assigns adjacent coordinates to ships either vertically or horizontally" do
       ai.pick_coordinates_for_ships(fleet_board)
-    
+
       fleet_board.ships.each do | ship |
         coordinate_1, coordinate_2, coordinate_3 = get_coordinates(ship)
 
@@ -50,7 +50,7 @@ describe AIForPlacingShips do
   end
 
   def adjacent_column?(coordinate_1, coordinate_2)
-    coordinate_2.column == next_column[coordinate_1.column.to_sym]
+    coordinate_2.column == coordinate_1.column + 1
   end
 
   def are_horizontal?(coordinate_1, coordinate_2)
@@ -58,35 +58,7 @@ describe AIForPlacingShips do
   end
 
   def adjacent_row?(coordinate_1, coordinate_2)
-    coordinate_2.row == next_row[coordinate_1.row.to_sym]
-  end
-
-  def next_row
-    { a: "b",
-      b: "c",
-      c: "d",
-      d: "e",
-      e: "f",
-      f: "g",
-      g: "h",
-      h: "i",
-      i: "j",
-      j: nil
-    }
-  end    
-
-  def next_column
-    { "1": "2",
-      "2": "3",
-      "3": "4",
-      "4": "5",
-      "5": "6",
-      "6": "7",
-      "7": "8",
-      "8": "9",
-      "9": "10",
-      "10": nil
-    }
+    coordinate_2.row == coordinate_1.row + 1
   end
 
 end
