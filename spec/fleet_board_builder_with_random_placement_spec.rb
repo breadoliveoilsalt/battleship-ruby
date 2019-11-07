@@ -56,8 +56,8 @@ describe FleetBoardBuilderWithRandomPlacement do
   def check_data_matches_segment_coordinates(fleet_board)
     fleet_board.ships.each do | ship |
       ship.segments.each do | segment |
-        data_row = segment.coordinate.row.to_sym
-        data_column = segment.coordinate.column.to_i - 1
+        data_row = segment.coordinate.row
+        data_column = segment.coordinate.column
         if fleet_board.data[data_row][data_column] != segment
           return false
         end
