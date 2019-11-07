@@ -9,7 +9,7 @@ class GuessBoard
   end
 
   def update_with(coordinate_guess, response)
-    set_data(coordinate_guess.row, coordinate_guess.column, response.hit?)
+    set(coordinate_guess.row, coordinate_guess.column, response.hit?)
     update_ships_list(response)
   end
 
@@ -31,7 +31,11 @@ class GuessBoard
     end
   end
 
-  def set_data(row, column, value)
+  def get(row, column)
+    @data[row][column]
+  end
+
+  def set(row, column, value)
     @data[row][column] = value
   end
 
