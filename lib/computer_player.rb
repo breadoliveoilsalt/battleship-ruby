@@ -6,13 +6,14 @@ class ComputerPlayer
 
   attr_reader :fleet_board, :guess_board
 
-  def initialize(fleet_board:, guess_board:)
+  def initialize(fleet_board:, guess_board:, ai_for_making_guesses: AIForMakingGuesses.new)
     @fleet_board = fleet_board
     @guess_board = guess_board
+    @ai_for_making_guesses = ai_for_making_guesses
   end
 
   def make_guess
-    guess_board.get_empty_coordinate
+    @ai_for_making_guesses.make_guess(guess_board)
   end
 
   def respond_to_guess(coordinate_guess)
