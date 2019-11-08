@@ -1,5 +1,6 @@
 require_relative './guess_response.rb'
 require_relative './coordinate.rb'
+require_relative './ai_for_making_guesses.rb'
 
 class ComputerPlayer
 
