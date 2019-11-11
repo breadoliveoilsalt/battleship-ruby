@@ -14,6 +14,29 @@ class ConsoleUserInterface
     system("cls") || system("clear")
   end
 
+  def show_welcome
+    clear_view
+    str = <<~HEREDOC
+          -----------------------------------------------------
+
+
+
+
+                     *** Welcome to Battleship! ***
+
+                       (Press any key to continue)
+
+
+
+
+
+          -----------------------------------------------------
+
+    HEREDOC
+    output_stream.render(str)
+    input_stream.read_char
+  end
+
   def show_potential_fleet_board(fleet_board)
     clear_view
     str = line
