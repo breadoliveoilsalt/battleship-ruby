@@ -6,7 +6,7 @@ describe GameLoop do
   let(:player_1) { instance_double("HumanPlayer") }
   let(:player_2) { instance_double("ComputerPlayer") }
   
-  let(:game_loop) { GameLoop.new(player_1, player_2) }
+  let(:game_loop) { GameLoop }
 
   describe "#loop_through_game" do
 
@@ -31,14 +31,14 @@ describe GameLoop do
       expect(player_1).to receive(:respond_to_guess).ordered
       expect(player_2).to receive(:note_response).ordered
 
-      game_loop.loop_through_game
+      game_loop.loop_through_game(player_1, player_2)
     end
 
     it "returns the winner" do 
-      allow(player_2).to receive("lost_game?").and_return(false)
-      allow(player_1).to receive("lost_game?").and_return(true)
+      allow(player_1).to receive("lost_game?").and_return(false)
+      allow(player_2).to receive("lost_game?").and_return(true)
       
-      winner = game_loop.loop_through_game
+      winner = game_loop.loop_through_game(player_1, player_2)
 
       expect(winner).to eq(player_1)
     end
@@ -56,7 +56,7 @@ describe GameLoop do
 
       it "asks the current player to make a guess" do
         expect(player_1).to receive(:make_guess)
-        game_loop.loop_through_game
+        game_loop.loop_through_game(player_1, player_2)
       end
 
       it "asks asks the other player to respond to the guess" do
@@ -64,7 +64,7 @@ describe GameLoop do
         allow(player_1).to receive(:make_guess).and_return(coordinate)
 
         expect(player_2).to receive(:respond_to_guess).with(coordinate)
-        game_loop.loop_through_game
+        game_loop.loop_through_game(player_1, player_2)
       end
 
       it "asks the current player to note the response from the other player to its cguess coordinate" do
@@ -75,7 +75,7 @@ describe GameLoop do
         allow(player_2).to receive(:respond_to_guess).with(coordinate).and_return(response)
 
         expect(player_1).to receive(:note_response).with(coordinate, response)
-        game_loop.loop_through_game
+        game_loop.loop_through_game(player_1, player_2)
       end
 
     end
