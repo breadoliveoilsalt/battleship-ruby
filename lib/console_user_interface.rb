@@ -85,7 +85,7 @@ class ConsoleUserInterface
     if column == true
       "  \e[31m#{"X"}\e[0m  |"
     elsif column == false
-      "  \e[36m#{"-"}\e[0m  |"
+      "  \e[36m#{"O"}\e[0m  |"
     else
       "     |"
     end
@@ -112,7 +112,7 @@ class ConsoleUserInterface
         " #{segment_string} |"
       end
     elsif column == false
-      "  \e[36m#{"-"}\e[0m  |"
+      "  \e[36m#{"O"}\e[0m  |"
     else
       "     |"
     end

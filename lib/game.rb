@@ -3,27 +3,33 @@ require_all 'lib'
 
 class Game
 
-  attr_reader :user_interface
+  attr_reader :user_interface, :player_builder, :game_loop, :game_end
 
-  def initialize
-    @user_interface = ConsoleUserInterface.new(
-      output_stream: ConsoleOutputStream.new,
-      input_stream: ConsoleInputStream.new
+  def initialize(
+    user_interface: ConsoleUserInterfaceBuilder.build,
+    player_builder: HumanVsComputerPlayerBuilder,
+    game_loop: GameLoop,
+    game_end: GameEnd
     )
+
+    @user_interface = user_interface
+    @player_builder = player_builder
+    @game_loop = game_loop
+    @game_end = game_end
   end
 
   def start
     user_interface.show_welcome
-
-    continue_playing = true
-
-    while continue_playing
-      human_player, computer_player = PlayerBuilder.new(user_interface).build_players_with_boards_and_ships
-      winner = GameLoop.new(human_player, computer_player).loop_through_game      
-      continue_playing = GameEnd.new(user_interface).handle_game_over(winner)
-    end
-
+    game_set_up_loop
     user_interface.good_bye
+  end
+
+  def game_set_up_loop
+    begin
+      player_1, player_2 = player_builder.build_players_with_boards_and_ships(user_interface)
+      winner = game_loop.loop_through_game(player_1, player_2)
+      continue_playing = game_end.handle_game_over(user_interface, winner)
+    end while continue_playing
   end
 
 end

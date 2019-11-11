@@ -16,6 +16,10 @@ To run the app locally:
 
 4. Run `ruby exe/battleship.rb`.  
 
+## Quitting the Game in the Middle of Game Play
+
+To quit the game before a game is won, press `ctrl + d` or `ctrl + c` *once the prompt asks you to enter a numerical column for your turn and befor you hit `enter`*.
+
 ## Running the App's Tests
 
 To run the tests for the app, from the root directory, run the command `rspec` or `rake`.
