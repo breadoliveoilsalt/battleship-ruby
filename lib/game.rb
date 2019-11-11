@@ -13,6 +13,8 @@ class Game
   end
 
   def start
+    user_interface.show_welcome
+
     continue_playing = true
 
     while continue_playing

@@ -14,6 +14,29 @@ class ConsoleUserInterface
     system("cls") || system("clear")
   end
 
+  def show_welcome
+    clear_view
+    str = <<~HEREDOC
+          -----------------------------------------------------
+
+
+
+
+                     *** Welcome to Battleship! ***
+
+                       (Press any key to continue)
+
+
+
+
+
+          -----------------------------------------------------
+
+    HEREDOC
+    output_stream.render(str)
+    input_stream.read_char
+  end
+
   def show_potential_fleet_board(fleet_board)
     clear_view
     str = line
@@ -160,8 +183,8 @@ class ConsoleUserInterface
   end
 
   def get_board_ok
-    output_stream.render("\nWould you like your ships placed in this way? (Enter 'y' or 'n')\n")
-    decision = input_stream.read_line
+    output_stream.render("\nWould you like your ships placed in this way? (Type 'y' or 'n')\n")
+    decision = input_stream.read_char
     validate_board_ok_decision(decision)
   end
 
@@ -177,8 +200,8 @@ class ConsoleUserInterface
   end
 
   def get_row
-    output_stream.render("\nPlease select a row from 'a' to 'j'\n")
-    row = input_stream.read_line
+    output_stream.render("\nPlease enter a row from 'a' to 'j'.\n")
+    row = input_stream.read_char
     validate_row(row)
   end
 
@@ -204,7 +227,7 @@ class ConsoleUserInterface
   end
   
   def get_column
-    output_stream.render("\nPlease select a column from '1' to '10'\n")
+    output_stream.render("\nPlease select a column from '1' to '10' and hit enter.\n")
     column = input_stream.read_line
     validate_column(column)
   end
