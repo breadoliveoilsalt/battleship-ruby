@@ -1,19 +1,14 @@
 require 'require_all'
 require_all 'lib'
 
-class PlayerBuilder
+class HumanVsComputerPlayerBuilder
 
-  attr_reader :user_interface
-  
-  def initialize(user_interface)
-    @user_interface = user_interface
-  end
-
-  def build_players_with_boards_and_ships
+  def self.build_players_with_boards_and_ships(user_interface)
+    set_user_interface(user_interface)
     [build_human_player, build_computer_player]
   end
   
-  def build_human_player
+  def self.build_human_player
     guess_board = GuessBoard.new
 
     fleet_board = FleetBoardChooserForUser.new(
@@ -30,7 +25,7 @@ class PlayerBuilder
     human_player
   end
 
-  def build_computer_player
+  def self.build_computer_player
     fleet_board = FleetBoardBuilderWithRandomPlacement.build
     guess_board = GuessBoard.new
     
@@ -41,5 +36,13 @@ class PlayerBuilder
 
     computer_player
   end
+
+  def self.user_interface
+    @@user_interface
+  end
+
+  def self.set_user_interface(user_interface)
+    @@user_interface = user_interface
+  end  
 
 end
