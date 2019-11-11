@@ -5,10 +5,12 @@ describe ComputerPlayer do
 
   let(:fleet_board) { instance_double("FleetBoard") } 
   let(:guess_board) { instance_double("GuessBoard") } 
+  let(:ai) { instance_double("AIForMakingGuesses") }
   
   let(:computer_player) { ComputerPlayer.new(
       fleet_board: fleet_board,
-      guess_board: guess_board
+      guess_board: guess_board,
+      ai_for_making_guesses: ai
       )
   }
 
@@ -22,9 +24,10 @@ describe ComputerPlayer do
 
   describe "#make_guess" do
   
-    it "returns a coordinate by asking the guess board for an empty coordinate" do
+    it "returns a coordinate by asking the ai for making guesses to make a guess" do
+      
       coordinate = Coordinate.new(0, 0)
-      allow(guess_board).to receive(:get_empty_coordinate).and_return(coordinate)
+      allow(ai).to receive(:make_guess).with(guess_board).and_return(coordinate)
       
       result = computer_player.make_guess
       
