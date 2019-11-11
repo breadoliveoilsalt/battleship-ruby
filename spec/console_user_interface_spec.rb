@@ -27,14 +27,14 @@ describe ConsoleUserInterface do
   describe "#get_row" do
     
     it "reads a line from the input stream" do
-      allow(input_stream_double).to receive(:read_line).and_return("a")
+      allow(input_stream_double).to receive(:read_char).and_return("a")
 
-      expect(input_stream_double).to receive(:read_line)
+      expect(input_stream_double).to receive(:read_char)
       user_interface.get_row
     end
   
     it "only returns a valid row between 0 and 9 based on whether the user enters the letters a through j" do
-      allow(input_stream_double).to receive(:read_line).and_return("z", "56", "", "j")
+      allow(input_stream_double).to receive(:read_char).and_return("z", "56", "", "j")
 
       expect(user_interface.get_row).to eq(9)
       user_interface.get_row
